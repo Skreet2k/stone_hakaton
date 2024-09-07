@@ -1,33 +1,46 @@
 import { Injectable } from '@angular/core';
 
+export interface User {
+  userId: number;
+  firstName: string;
+  lastName: string;
+  username: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class TelegramService {
+  user: User = {
+    userId: 267575209,
+    firstName: 'Alexander',
+    lastName: 'Kharkovskiy',
+    username: 'akharkovskiy',
+  };
+
   // Проверим, что Telegram WebApp доступен
   private isTelegramWebAppAvailable(): boolean {
     return typeof (window as any).Telegram !== 'undefined';
   }
 
   // Получим информацию о пользователе
-  getUserData() {
+  getUserData(): User {
     if (this.isTelegramWebAppAvailable()) {
       const tg = (window as any).Telegram.WebApp;
       const user = tg.initDataUnsafe?.user;
       if (user) {
-        return {
-          id: user.id,
-          first_name: user.first_name,
-          last_name: user.last_name,
+        this.user = {
+          firstName: user.first_name,
+          lastName: user.last_name,
+          userId: user.id,
           username: user.username,
         };
       } else {
         console.error('Нет данных о пользователе');
-        return null;
       }
     } else {
       console.error('Telegram WebApp недоступен');
-      return null;
     }
+    return this.user;
   }
 }

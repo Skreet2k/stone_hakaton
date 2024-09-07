@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClickCounterService } from '../click-counter.service';
-import { TelegramService } from '../telegram.service';
+import { TelegramService, User } from '../telegram.service';
+import { UserScore } from '../http-service.service';
 
 @Component({
   selector: 'app-header',
@@ -10,22 +11,18 @@ import { TelegramService } from '../telegram.service';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
-  clicks: number = 0;
-  userName: string = "user_name_288";
+  user: User | undefined;
+  userScore: UserScore | undefined;
 
   constructor(
     private clickCounterService: ClickCounterService,
     private telegramService: TelegramService) {}
 
   ngOnInit() {
-    this.clickCounterService.clicks$.subscribe((clicks) => {
-      this.clicks = clicks;
+    this.clickCounterService.clicks$.subscribe((r) => {
+      this.userScore = r;
     });
 
-    const user = this.telegramService.getUserData();
-
-    if(user) {
-      this.userName = user?.username;
-    }
+    this.user = this.telegramService.getUserData();
   }
 }

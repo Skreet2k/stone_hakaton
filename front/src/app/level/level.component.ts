@@ -16,9 +16,9 @@ export class LevelComponent implements OnInit {
   constructor(private clickService: ClickCounterService) { }
 
   ngOnInit() {
-    this.clickService.getClickCount().subscribe(r => {
-      this.progress = r % 100;
-      this.level = Math.floor(r / 100);
+    this.clickService.clickCountSubscription().subscribe(r => {
+      this.progress = (r?.currentScore ?? 0) % 100;
+      this.level = Math.floor((r?.currentScore ?? 0) / 100);
     });
   }
 

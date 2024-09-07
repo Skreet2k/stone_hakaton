@@ -1,30 +1,31 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TelegramService } from './telegram.service';
-import { HttpService } from './http-service.service';
+import { HttpService, UserScore } from './http-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClickCounterService {
-  private clicksSubject = new BehaviorSubject<number>(1000);
-  private incrementCount = 2;
+  private clicksSubject = new BehaviorSubject<UserScore | undefined>(undefined);
+  private incrementCount = 1;
   clicks$ = this.clicksSubject.asObservable();
   userId: any;
 
   constructor(private http: HttpService, telegramService: TelegramService) {
-    this.userId = telegramService.getUserData()?.id ?? 267575209;
+    this.userId = telegramService.getUserData()?.userId;
     this.http.getUserScore(this.userId).subscribe(r => {
-      this.clicksSubject.next(r.totalScore);
+      this.clicksSubject.next(r);
     })
   }
 
   incrementClicks() {
-    this.clicksSubject.next(this.clicksSubject.value + this.incrementCount);
+    this.http.click(this.userId).subscribe(r => {
+      this.clicksSubject.next(r);
+    })
   }
 
-  getClickCount(): Observable<number> {
+  clickCountSubscription(): Observable<UserScore | undefined> {
     return this.clicksSubject.asObservable();
   }
 
