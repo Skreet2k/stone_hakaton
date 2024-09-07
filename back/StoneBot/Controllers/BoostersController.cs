@@ -31,4 +31,27 @@ public class BoostersController : Controller
         var boosters = await _boostersService.Apply(userId, boosterId);
         return boosters;
     }
+
+
+    /// <summary>
+    ///     Admin. Create Booster
+    /// </summary>
+    /// <param name="booster"> Booster </param>
+    /// <returns> Booster </returns>
+    [HttpPost]
+    public async Task<Booster> AddBackground([FromBody] Booster booster)
+    {
+        booster = await _boostersService.Add(booster);
+        return booster;
+    }
+
+    /// <summary>
+    ///     Admin. Delete Booster by ID
+    /// </summary>
+    /// <param name="boosterId"> Booster ID </param>
+    [HttpDelete("{boosterId:long}")]
+    public async Task Delete([FromRoute] long boosterId)
+    {
+        await _boostersService.Delete(boosterId);
+    }
 }

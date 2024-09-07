@@ -94,7 +94,7 @@ public class MinersController : Controller
     /// <summary>
     ///     Admin. Delete Miner by ID
     /// </summary>
-    /// <param name="backgroundId"> Miner ID </param>
+    /// <param name="minerId"> Miner ID </param>
     [HttpDelete("{minerId:long}")]
     public async Task Delete([FromRoute] long minerId)
     {
