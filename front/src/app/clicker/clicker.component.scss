@@ -1,0 +1,71 @@
+#gameArea {
+  flex-grow: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/images/home-bg.png");
+  height: 100%;
+}
+
+@keyframes rotate-image {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-5px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-2px) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.stone img {
+  display: block;
+  margin: 0 auto;
+  width: 350px;
+  height: auto;
+  filter: drop-shadow(0 1px 3px rgb(255, 238, 0));
+  pointer-events: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.stone img.active {
+  animation: rotate-image 0.1s linear infinite; /* убран delay для резкого старта */
+}
+
+/* Стиль и анимация для +1 */
+.point {
+  position: absolute;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  animation: pointAnimation 1s ease-out forwards;
+  text-shadow: 2px 2px 2px rgb(56, 56, 56);
+  pointer-events: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Анимация для +1 (всплытие вверх и исчезновение) */
+@keyframes pointAnimation {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+}

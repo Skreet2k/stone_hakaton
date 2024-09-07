@@ -1,0 +1,6 @@
+@StoneBot_HostAddress = http://localhost:5047
+
+GET {{StoneBot_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

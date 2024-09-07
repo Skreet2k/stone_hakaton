@@ -1,0 +1,24 @@
+table {
+  width: 100%;
+}
+
+.mat-header-cell,
+.mat-cell {
+  color: #ffffff; /* Сделать текст белым для тёмной темы */
+}
+
+.mat-header-cell {
+  background-color: #303030; /* Более тёмный фон для заголовка */
+}
+
+.mat-cell {
+  background-color: #424242; /* Цвет ячеек таблицы */
+}
+
+.mat-paginator {
+  color: white; /* Цвет текста в пагинаторе */
+}
+
+.mat-sort-header-arrow {
+  color: white; /* Цвет стрелок сортировки */
+}

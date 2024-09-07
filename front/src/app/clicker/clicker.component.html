@@ -1,0 +1,12 @@
+<div id="gameArea" (touchstart)="onTouch($event)" (mousedown)="onClick($event)" (touchend)="onTouchEnd($event)">
+  <div class="stone">
+    <img src="images/stone1.png" [class.active]="isAnimating" />
+  </div>
+  <div
+    *ngFor="let point of points"
+    class="point"
+    [ngStyle]="{ 'top.px': point.y, 'left.px': point.x }"
+  >
+    +{{ incrementCount }}
+  </div>
+</div>
