@@ -7,7 +7,7 @@ namespace StoneBot.Services;
 public class ScoresService : IScoresService
 {
     // TODO move to config or relate to the level
-    private const int MaxScoreCountPerDay = 1000;
+    public const int MaxScoreCountPerDay = 1000;
 
     private readonly StoneBotDbContext _dbContext;
 
@@ -16,49 +16,56 @@ public class ScoresService : IScoresService
         _dbContext = dbContext;
     }
 
-    public async Task<List<Score>> GetScoresByUser(long userId)
+    public async Task<Score> GetScoresByUser(long userId)
     {
-        var scores = await _dbContext.Scores
+        var score = await _dbContext.Scores
             .Where(x => x.UserId == userId)
-            .ToListAsync();
+            .FirstOrDefaultAsync();
 
-        var today = Today();
-        if (scores.All(x => x.Date != today))
-        {
-            var todayScore = await CreateTodayScore(userId, today);
-            scores.Add(todayScore);
-        }
-
-        return scores;
+        return score ?? await CreateScore(userId);
     }
 
-    public async Task AddCoins(long userId, int count)
+    public async Task<Score> Click(long userId, int count)
     {
-        var today = Today();
-        var todayScore = await _dbContext.Scores
-            .FirstOrDefaultAsync(x => x.UserId == userId && x.Date == today);
+        var score = await _dbContext.Scores
+            .FirstOrDefaultAsync(x => x.UserId == userId);
 
-        if (todayScore == null)
+        score ??= await CreateScore(userId);
+
+        var multiplier = await _dbContext.UserBoosters
+            .AsNoTracking()
+            .Where(x => x.UserId == userId)
+            .Where(x => x.IsActive)
+            .Select(x => x.Booster.CoinsCountPerClick)
+            .SumAsync();
+
+        multiplier = multiplier == 0 ? 1 : multiplier;
+        count *= multiplier;
+
+        if (score.TodayScore + count > MaxScoreCountPerDay)
         {
-            todayScore = await CreateTodayScore(userId, today);
+            count = MaxScoreCountPerDay - score.TodayScore;
         }
 
-        todayScore.Count += count;
+        score.TodayScore += count;
+        score.TotalScore += count;
+        score.CurrentScore += count;
+
         await _dbContext.SaveChangesAsync();
+
+        return score;
     }
 
-    private async Task<Score> CreateTodayScore(long userId, DateOnly today)
+    private async Task<Score> CreateScore(long userId)
     {
         var todayScore = new Score
         {
-            Date = today,
             UserId = userId,
-            MaxCount = MaxScoreCountPerDay
         };
+
         await _dbContext.Scores.AddAsync(todayScore);
         await _dbContext.SaveChangesAsync();
         return todayScore;
     }
 
-    private static DateOnly Today() => DateOnly.FromDateTime(DateTime.Today);
 }

@@ -8,7 +8,13 @@ public class StoneBotDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Score> Scores { get; set; }
     public DbSet<Skin> Skins { get; set; }
+    public DbSet<Background> Backgrounds { get; set; }
+    public DbSet<Booster> Boosters { get; set; }
+    public DbSet<Miner> Miners { get; set; }
     public DbSet<UserSkin> UserSkins { get; set; }
+    public DbSet<UserBackground> UserBackgrounds { get; set; }
+    public DbSet<UserBooster> UserBoosters { get; set; }
+    public DbSet<UserMiner> UserMiners { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
@@ -18,30 +24,6 @@ public class StoneBotDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        // users
-        var userBuilder = modelBuilder.Entity<User>();
-        userBuilder.HasKey(x => x.Id);
-
-        // scores
-        var scoreBuilder = modelBuilder.Entity<Score>();
-        scoreBuilder.HasKey(x => x.Id);
-        scoreBuilder
-            .HasOne<User>(x => x.User)
-            .WithMany(x => x.Scores);
-
-        // skins
-        var skinBuilder = modelBuilder.Entity<Skin>();
-        skinBuilder.HasKey(x => x.Id);
-
-        // user skins
-        var userSkinBuilder = modelBuilder.Entity<UserSkin>();
-        userSkinBuilder.HasKey(x => new { x.UserId, x.SkinId });
-        userSkinBuilder
-            .HasOne<User>(x => x.User)
-            .WithMany();
-        userSkinBuilder
-            .HasOne<Skin>(x => x.Skin)
-            .WithMany();
+        modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
 }

@@ -12,8 +12,8 @@ public class SkinsService : ISkinsService
     {
         _dbContext = dbContext;
     }
-    
-    public async Task<List<Skin>> GetSkins(long? userId)
+
+    public async Task<List<Skin>> Get(long? userId)
     {
         List<Skin> skins;
         if (userId.HasValue)
@@ -29,5 +29,26 @@ public class SkinsService : ISkinsService
         }
 
         return skins;
+    }
+
+    public async Task<Skin> Apply(long userId, long skinId)
+    {
+        var userSkins = await _dbContext.UserSkins
+            .Where(x => x.UserId == userId)
+            .Include(userSkin => userSkin.Skin)
+            .ToListAsync();
+
+        var skin = userSkins.FirstOrDefault(x => x.SkinId == skinId);
+        if (skin == null)
+        {
+            throw new Exception($"User {userId} does not have a skin.");
+        }
+
+        userSkins.ForEach(x => x.IsActive = false);
+        skin.IsActive = true;
+
+        await _dbContext.SaveChangesAsync();
+
+        return skin.Skin;
     }
 }

@@ -1,0 +1,35 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using StoneBot.Domain;
+using StoneBot.Services;
+
+namespace StoneBot.Controllers;
+
+[ApiController]
+[Route("backgrounds")]
+[ApiExplorerSettings(GroupName = "Backgrounds")]
+public class BackgroundsController : Controller
+{
+    private readonly IBackgroundsService _backgroundsService;
+
+    public BackgroundsController(IBackgroundsService backgroundsService)
+    {
+        _backgroundsService = backgroundsService;
+    }
+
+    [HttpGet]
+    public async Task<List<Background>> GetBackgrounds([FromQuery] long? userId)
+    {
+        var backgrounds = await _backgroundsService.Get(userId);
+        return backgrounds;
+    }
+
+    [HttpPut]
+    public async Task<Background> ApplyBackground(
+        [FromQuery] [BindRequired] long userId,
+        [FromQuery] [BindRequired] long backgroundId)
+    {
+        var backgrounds = await _backgroundsService.Apply(userId, backgroundId);
+        return backgrounds;
+    }
+}
