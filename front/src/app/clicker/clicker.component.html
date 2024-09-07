@@ -1,4 +1,9 @@
-<div id="gameArea" (touchstart)="onTouch($event)" (mousedown)="onClick($event)" (touchend)="onTouchEnd($event)">
+<div
+  class="clicker"
+  (touchstart)="onTouch($event)"
+  (mousedown)="onClick($event)"
+  (touchend)="onTouchEnd($event)"
+>
   <div class="stone">
     <img src="images/stone1.png" [class.active]="isAnimating" />
   </div>
@@ -9,4 +14,5 @@
   >
     +{{ incrementCount }}
   </div>
+  <app-level></app-level>
 </div>

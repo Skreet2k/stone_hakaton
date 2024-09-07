@@ -11,7 +11,7 @@ import { TelegramService } from '../telegram.service';
 })
 export class HeaderComponent implements OnInit {
   clicks: number = 0;
-  userName: string = "Имя из телеграмма";
+  userName: string = "user_name_288";
 
   constructor(
     private clickCounterService: ClickCounterService,

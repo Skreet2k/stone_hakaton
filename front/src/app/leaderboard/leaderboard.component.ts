@@ -1,37 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-
-export interface Leader {
-  position: number;
-  name: string;
-  points: number;
-}
+import { Component, OnInit } from '@angular/core';
+import { LeaderboardService, Leader } from '../leaderboard.service';
+import { NgClass, NgForOf } from '@angular/common';
 
 @Component({
-  selector: 'app-leaderboard',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule],
+  selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrl: './leaderboard.component.scss',
+  styleUrls: ['./leaderboard.component.scss'],
+  imports: [NgClass, NgForOf],
 })
 export class LeaderboardComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'points'];
-  dataSource = new MatTableDataSource<Leader>(ELEMENT_DATA);
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator | null = null;
-  @ViewChild(MatSort, { static: false }) sort: MatSort | null = null;
+  leaders: Leader[] = [];
+
+  constructor(private leaderboardService: LeaderboardService) { }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.leaders = this.leaderboardService.getLeaders();
   }
 }
-
-const ELEMENT_DATA: Leader[] = [
-  { position: 1, name: 'Alice', points: 1200 },
-  { position: 2, name: 'Bob', points: 1100 },
-  { position: 3, name: 'Charlie', points: 1000 },
-  // Добавь больше данных по необходимости
-];
