@@ -7,7 +7,6 @@ namespace StoneBot.Controllers;
 
 [ApiController]
 [Route("boosters")]
-[ApiExplorerSettings(GroupName = "Boosters")]
 public class BoostersController : Controller
 {
     private readonly IBoostersService _boostersService;

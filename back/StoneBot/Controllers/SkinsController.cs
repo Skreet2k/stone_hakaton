@@ -7,7 +7,6 @@ namespace StoneBot.Controllers;
 
 [ApiController]
 [Route("skins")]
-[ApiExplorerSettings(GroupName = "Skins")]
 public class SkinsController : Controller
 {
     private readonly ISkinsService _skinsService;

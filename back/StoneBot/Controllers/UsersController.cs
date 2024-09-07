@@ -7,7 +7,6 @@ namespace StoneBot.Controllers;
 
 [ApiController]
 [Route("users")]
-[ApiExplorerSettings(GroupName = "Users")]
 public class UsersController : Controller
 {
     private readonly IUserService _userService;

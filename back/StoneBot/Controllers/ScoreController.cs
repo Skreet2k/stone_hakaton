@@ -6,7 +6,6 @@ namespace StoneBot.Controllers;
 
 [ApiController]
 [Route("scores")]
-[ApiExplorerSettings(GroupName = "Scores")]
 public class ScoreController : Controller
 {
     private readonly IScoresService _scoresService;

@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using StoneBot.Data;
 using StoneBot.Services;
@@ -6,8 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 services.AddEndpointsApiExplorer();
-services.AddSwaggerGen();
+services.AddSwaggerGen(options =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+    options.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
+});
+
 services.AddControllers();
+services.AddMvc();
 services.AddDbContext<StoneBotDbContext>();
 services.AddScoped<IUserService, UserService>();
 services.AddScoped<IScoresService, ScoresService>();
@@ -20,6 +29,9 @@ services.AddScoped<IShopService, ShopService>();
 var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseRouting();
+app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {

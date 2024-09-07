@@ -7,7 +7,6 @@ namespace StoneBot.Controllers;
 
 [ApiController]
 [Route("backgrounds")]
-[ApiExplorerSettings(GroupName = "Backgrounds")]
 public class BackgroundsController : Controller
 {
     private readonly IBackgroundsService _backgroundsService;
@@ -17,6 +16,12 @@ public class BackgroundsController : Controller
         _backgroundsService = backgroundsService;
     }
 
+
+    /// <summary>
+    ///     Get backgrounds
+    /// </summary>
+    /// <param name="userId"> User ID. Optional</param>
+    /// <returns></returns>
     [HttpGet]
     public async Task<List<Background>> GetBackgrounds([FromQuery] long? userId)
     {
