@@ -29,6 +29,12 @@ public class BackgroundsController : Controller
         return backgrounds;
     }
 
+    /// <summary>
+    ///     Apply background to user
+    /// </summary>
+    /// <param name="userId">User ID </param>
+    /// <param name="backgroundId">Background ID</param>
+    /// <returns> Current Background </returns>
     [HttpPut]
     public async Task<Background> ApplyBackground(
         [FromQuery] [BindRequired] long userId,
@@ -38,6 +44,11 @@ public class BackgroundsController : Controller
         return backgrounds;
     }
 
+    /// <summary>
+    ///     Admin. Create Background
+    /// </summary>
+    /// <param name="background"> Background </param>
+    /// <returns> Background </returns>
     [HttpPost]
     public async Task<Background> AddBackground([FromBody] Background background)
     {
@@ -45,6 +56,10 @@ public class BackgroundsController : Controller
         return background;
     }
 
+    /// <summary>
+    ///     Admin. Delete Background by ID
+    /// </summary>
+    /// <param name="backgroundId"> Background ID </param>
     [HttpDelete("{backgroundId:long}")]
     public async Task Delete([FromRoute] long backgroundId)
     {
