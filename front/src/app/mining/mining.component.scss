@@ -1,4 +1,62 @@
-img {
+.mining {
+    width: 90%;
+    padding: 20px;
+    font-size: 22px;
+
+    .mine {
+        width: 90%;
+        height: 5em;
+
+        background-color: white;
+        border-radius: 3em;
+
+        display: flex;
+
+        .image-container {
+            width: 50%;
+
+            img {
+                height: 100%;
+                filter: drop-shadow(0 1px 3px rgba(255, 238, 0, 0.384));
+            }
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+
+            color: #fff;
+            text-shadow: -2px -2px 0 #000, /* Обводка сверху слева */ 2px -2px 0 #000,
+              /* Обводка сверху справа */ -2px 2px 0 #000,
+              /* Обводка снизу слева */ 2px 2px 0 #000,
+              /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
+
+            .name {
+            }
+        }
+    }
+}
+
+.mining .content {
     width: 100%;
-    filter: drop-shadow(0 1px 3px rgba(255, 238, 0, 0.384));
+    background-color: #fde29c;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    color: #fff;
+    text-shadow:
+        -2px -2px 0 #000,
+        /* Обводка сверху слева */ 2px -2px 0 #000,
+        /* Обводка сверху справа */ -2px 2px 0 #000,
+        /* Обводка снизу слева */ 2px 2px 0 #000,
+        /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
+    background-color: #f2a14a;
+    padding: 10px 0;
+    box-shadow: 0 10px 0 0 #c2813b;
+    margin-bottom: 20px;
+    font-weight: bold;
 }
