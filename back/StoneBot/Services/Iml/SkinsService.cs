@@ -13,6 +13,17 @@ public class SkinsService : ISkinsService
         _dbContext = dbContext;
     }
 
+    public async Task<Skin?> GetCurrent(long userId)
+    {
+        var skin = await _dbContext.UserSkins
+            .Where(x => x.UserId == userId)
+            .Where(x => x.IsActive)
+            .Select(x => x.Skin)
+            .FirstOrDefaultAsync();
+
+        return skin;
+    }
+
     public async Task<List<Skin>> Get(long? userId)
     {
         List<Skin> skins;
@@ -52,13 +63,21 @@ public class SkinsService : ISkinsService
         return skin.Skin;
     }
 
-    public Task<Skin> Add(Skin skin)
+    public async Task<Skin> Add(Skin skin)
     {
-        throw new NotImplementedException();
+        await _dbContext.Skins.AddAsync(skin);
+        await _dbContext.SaveChangesAsync();
+
+        return skin;
     }
 
-    public Task Delete(long skinId)
+    public async Task Delete(long skinId)
     {
-        throw new NotImplementedException();
+        var skin = await _dbContext.Skins.FindAsync(skinId);
+        if (skin != null)
+        {
+            _dbContext.Skins.Remove(skin);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

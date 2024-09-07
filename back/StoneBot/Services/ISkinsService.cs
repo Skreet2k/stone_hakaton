@@ -4,6 +4,7 @@ namespace StoneBot.Services;
 
 public interface ISkinsService
 {
+    public Task<Skin?> GetCurrent(long userId);
     public Task<List<Skin>> Get(long? userId);
     public Task<Skin> Apply(long userId, long skinId);
 
