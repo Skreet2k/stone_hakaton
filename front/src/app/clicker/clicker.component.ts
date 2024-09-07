@@ -1,11 +1,12 @@
 import { NgForOf, NgStyle } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ClickCounterService } from '../click-counter.service';
+import { LevelComponent } from "../level/level.component";
 
 @Component({
   selector: 'app-clicker',
   standalone: true,
-  imports: [NgStyle, NgForOf],
+  imports: [NgStyle, NgForOf, LevelComponent],
   templateUrl: './clicker.component.html',
   styleUrl: './clicker.component.scss',
 })

@@ -1,0 +1,52 @@
+.menu {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+}
+
+.home-menu .icon {
+  background-image: url("/images/home.svg");
+}
+
+.home-menu.active .icon {
+  background-image: url("/images/home_active.svg");
+}
+
+.store-menu .icon {
+  background-image: url("/images/store.svg");
+}
+
+.store-menu.active .icon {
+  background-image: url("/images/store_active.svg");
+}
+
+.mine-menu .icon {
+  background-image: url("/images/mine.svg");
+}
+
+.mine-menu.active .icon {
+  background-image: url("/images/mine_active.svg");
+}
+
+.rating-menu .icon {
+  background-image: url("/images/rating.svg");
+}
+
+.rating-menu.active .icon {
+  background-image: url("/images/rating_active.svg");
+}
+
+.text {
+  color: rgba(87, 88, 76, 0.6);
+  font-size: 16px;
+}
+
+.active .text {
+  color: rgba(255, 255, 255, 1);
+  font-size: 16px;
+}
