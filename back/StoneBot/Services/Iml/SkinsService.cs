@@ -51,4 +51,14 @@ public class SkinsService : ISkinsService
 
         return skin.Skin;
     }
+
+    public Task<Skin> Add(Skin skin)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task Delete(long skinId)
+    {
+        throw new NotImplementedException();
+    }
 }

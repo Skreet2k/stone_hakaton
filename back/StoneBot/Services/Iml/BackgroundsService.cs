@@ -51,4 +51,22 @@ public class BackgroundsService : IBackgroundsService
 
         return background.Background;
     }
+
+    public async Task<Background> Add(Background background)
+    {
+        await _dbContext.Backgrounds.AddAsync(background);
+        await _dbContext.SaveChangesAsync();
+
+        return background;
+    }
+
+    public async Task Delete(long backgroundId)
+    {
+        var background = await _dbContext.Backgrounds.FindAsync(backgroundId);
+        if (background != null)
+        {
+            _dbContext.Backgrounds.Remove(background);
+            await _dbContext.SaveChangesAsync();
+        }
+    }
 }

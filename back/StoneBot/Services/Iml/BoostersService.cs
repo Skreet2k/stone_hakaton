@@ -50,4 +50,14 @@ public class BoostersService : IBoostersService
 
         return booster.Booster;
     }
+
+    public Task<Booster> Add(Booster booster)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task Delete(long boosterId)
+    {
+        throw new NotImplementedException();
+    }
 }

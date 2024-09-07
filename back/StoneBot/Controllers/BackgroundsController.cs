@@ -37,4 +37,17 @@ public class BackgroundsController : Controller
         var backgrounds = await _backgroundsService.Apply(userId, backgroundId);
         return backgrounds;
     }
+
+    [HttpPost]
+    public async Task<Background> AddBackground([FromBody] Background background)
+    {
+        background = await _backgroundsService.Add(background);
+        return background;
+    }
+
+    [HttpDelete("{backgroundId:long}")]
+    public async Task Delete([FromRoute] long backgroundId)
+    {
+        await _backgroundsService.Delete(backgroundId);
+    }
 }

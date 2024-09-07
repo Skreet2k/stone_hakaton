@@ -51,4 +51,14 @@ public class MinersService : IMinersService
 
         return miner.Miner;
     }
+
+    public Task<Miner> Add(Miner miner)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task Delete(long minerId)
+    {
+        throw new NotImplementedException();
+    }
 }
