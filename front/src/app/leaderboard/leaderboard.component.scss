@@ -1,24 +1,155 @@
-table {
+.leaderboard {
+  width: 90%;
+  padding: 20px;
+  font-size: 22px;
+}
+
+.title {
+  color: #fff;
+  text-shadow: -2px -2px 0 #000, /* Обводка сверху слева */ 2px -2px 0 #000,
+    /* Обводка сверху справа */ -2px 2px 0 #000,
+    /* Обводка снизу слева */ 2px 2px 0 #000,
+    /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
+  background-color: #f2a14a;
+  padding: 10px 0;
+  box-shadow: 0 10px 0 0 #c2813b;
+  margin-bottom: 20px;
+}
+
+.leaderboard .content {
   width: 100%;
+  background-color: #fde29c;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
-.mat-header-cell,
-.mat-cell {
-  color: #ffffff; /* Сделать текст белым для тёмной темы */
+.table {
+  overflow-y: auto;
+  height: calc(100vh - 410px);
+  padding: 0 20px;
 }
 
-.mat-header-cell {
-  background-color: #303030; /* Более тёмный фон для заголовка */
+.search-container {
+  position: relative;
+  margin-bottom: 10px;
+  width: 200px;
+  align-self: center;
 }
 
-.mat-cell {
-  background-color: #424242; /* Цвет ячеек таблицы */
+.search-container input {
+  padding: 10px 40px 10px 15px; /* Отступы внутри поля ввода */
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  outline: none;
+  box-shadow: none;
+  padding: 5px;
+  border: 1px solid #000; /* Черная рамка */
+  border-radius: 14px;
 }
 
-.mat-paginator {
-  color: white; /* Цвет текста в пагинаторе */
+.search-icon {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 
-.mat-sort-header-arrow {
-  color: white; /* Цвет стрелок сортировки */
+.leader-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fffade;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #000; /* Черная рамка */
+  border-radius: 14px;
+}
+
+.highlight {
+  padding: 10px 20px;
+}
+
+.highlight .leader-item {
+  background-color: #ffdb33;
+}
+
+.rank-icon {
+  background-color: #344139; /* Цвет фона (желтый) */
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%; /* Это сделает элемент кругом */
+  position: relative;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  margin-right: 10px;
+}
+
+.leader-item:nth-of-type(1) .rank-icon {
+  background-color: #edc13c; /* Цвет фона (желтый) */
+}
+
+.leader-item:nth-of-type(2) .rank-icon {
+  background-color: #939cab; /* Цвет фона (желтый) */
+}
+
+.leader-item:nth-of-type(3) .rank-icon {
+  background-color: #b67755; /* Цвет фона (желтый) */
+}
+
+.rank-text,
+.rank-highlight-text {
+  position: relative;
+  z-index: 2;
+  font-size: 16px;
+  color: white; /* Цвет текста */
+  font-weight: bold;
+}
+
+.rank-highlight-text {
+  text-shadow: -2px -2px 0 #000, /* Обводка сверху слева */ 2px -2px 0 #000,
+    /* Обводка сверху справа */ -2px 2px 0 #000,
+    /* Обводка снизу слева */ 2px 2px 0 #000,
+    /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
+  margin-right: 10px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.name {
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 10px;
+  color: #fff;
+  text-shadow: -2px -2px 0 #000, /* Обводка сверху слева */ 2px -2px 0 #000,
+    /* Обводка сверху справа */ -2px 2px 0 #000,
+    /* Обводка снизу слева */ 2px 2px 0 #000,
+    /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
+}
+
+.trophies {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-shadow: -2px -2px 0 #000, /* Обводка сверху слева */ 2px -2px 0 #000,
+    /* Обводка сверху справа */ -2px 2px 0 #000,
+    /* Обводка снизу слева */ 2px 2px 0 #000,
+    /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
+}
+
+.trophies img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
