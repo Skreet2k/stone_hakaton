@@ -4,6 +4,9 @@ namespace StoneBot.Services;
 
 public interface IScoresService
 {
-    public Task<List<Score>> GetScoresByUser(long userId);
-    public Task AddCoins(long userId, int count);
+    Task<Score> GetScoresByUser(long userId);
+
+    Task<Score>  Click(long userId, int count);
+
+    Task<LeaderboardDto> GetLearboard(long userId, int limit);
 }
