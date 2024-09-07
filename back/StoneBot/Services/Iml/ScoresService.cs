@@ -56,6 +56,57 @@ public class ScoresService : IScoresService
         return score;
     }
 
+    public async Task<LeaderboardDto> GetLearboard(long userId, int limit)
+    {
+        var scoreQuery = _dbContext.Scores
+            .Include(score => score.User)
+            .AsNoTracking()
+            .OrderByDescending(x => x.TotalScore);
+
+        var scores = await scoreQuery
+            .Take(limit)
+            .ToListAsync();
+
+        if (scores.All(x => x.UserId != userId))
+        {
+            scores = await scoreQuery.ToListAsync();
+        }
+
+        var userIds = scores.Select(x => x.UserId).ToList();
+
+        var skins = await _dbContext.UserSkins
+            .AsNoTracking()
+            .Where(x => userIds.Contains(x.UserId))
+            .ToListAsync();
+
+        var leaders = scores.Select((score, index) => new LeaderDto
+        {
+            User = Map(score.User, skins),
+            Order = index + 1,
+            Score = score.TodayScore
+        }).ToList();
+
+        var currentUser = leaders.First(x => x.User.Id == userId);
+
+        return new LeaderboardDto
+        {
+            CurrentUser = currentUser,
+            Leaders = leaders.Take(limit).ToList()
+        };
+    }
+
+    private static UserDto Map(User user, List<UserSkin> skins)
+    {
+        return new UserDto
+        {
+            Id = user.Id,
+            Username = user.Username,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            SkinId = skins.FirstOrDefault(x => x.UserId == user.Id)?.SkinId,
+        };
+    }
+
     private async Task<Score> CreateScore(long userId)
     {
         var todayScore = new Score
