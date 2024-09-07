@@ -1,1 +1,28 @@
-<p>shop works!</p>
+<div class="store">
+  <div class="content">
+    <div class="title">Store</div>
+    <div class="arrow-left" (click)="clickLeft()">
+      <img src="images/arrow-left.png" />
+    </div>
+    <div class="arrow-right" (click)="clickRight()">
+      <img src="images/arrow-right.png" />
+    </div>
+    <div class="store-item">
+      <div class="item-title">{{ currentStone?.name }}</div>
+      <div class="item-image"><img src="{{ currentStone?.src }}" /></div>
+      <div class="item-price">
+        <img src="images/coin.svg" alt="Diamonds" class="icon" />
+        {{ currentStone?.price }}
+      </div>
+      <div class="item-actions">
+        <div
+          class="action buy"
+          [ngClass]="{ disabled: currentStone?.isPurchased }"
+        >
+          Buy
+        </div>
+        <div class="action apply">Apply</div>
+      </div>
+    </div>
+  </div>
+</div>
