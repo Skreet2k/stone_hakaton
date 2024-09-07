@@ -16,6 +16,18 @@ public class BoostersController : Controller
         _boostersService = boostersService;
     }
 
+    /// <summary>
+    ///     Get Current Booster
+    /// </summary>
+    /// <param name="userId"> User ID</param>
+    /// <returns> Current User Booster</returns>
+    [HttpGet("current")]
+    public async Task<Booster?> GetCurrent([FromQuery] long userId)
+    {
+        var booster = await _boostersService.GetCurrent(userId);
+        return booster;
+    }
+
     [HttpGet]
     public async Task<List<Booster>> GetBoosters([FromQuery] long? userId)
     {
