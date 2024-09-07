@@ -1,0 +1,110 @@
+.store {
+  width: 90%;
+  padding: 20px;
+  font-size: 22px;
+}
+
+.title {
+  color: #fff;
+  text-shadow: -2px -2px 0 #000, /* Обводка сверху слева */ 2px -2px 0 #000,
+    /* Обводка сверху справа */ -2px 2px 0 #000,
+    /* Обводка снизу слева */ 2px 2px 0 #000,
+    /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
+  background-color: #f2a14a;
+  padding: 10px 0;
+  box-shadow: 0 10px 0 0 #c2813b;
+  margin-bottom: 20px;
+}
+
+.store .content {
+  width: 100%;
+  background-color: #fde29c;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.item-image img {
+  max-height: calc(100vh - 450px);
+}
+
+.item-title {
+  align-self: center;
+  color: #d48747;
+  font-weight: bold;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.item-price {
+  color: #fff;
+  text-shadow: -2px -2px 0 #000, /* Обводка сверху слева */ 1px -1px 0 #000,
+    /* Обводка сверху справа */ -1px 1px 0 #000,
+    /* Обводка снизу слева */ 1px 1px 0 #000,
+    /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.item-price img {
+  width: 35px;
+  margin-right: 10px;
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+.item-actions .action {
+  width: 150px;
+  height: 40px;
+  border-radius: 20px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action.buy {
+  background-color: #7ed70d;
+  vertical-align: middle;
+  text-shadow: -2px -2px 0 #000, /* Обводка сверху слева */ 1px -1px 0 #508f00,
+    /* Обводка сверху справа */ -1px 1px 0 #508f00,
+    /* Обводка снизу слева */ 1px 1px 0 #508f00,
+    /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
+}
+
+.action.apply {
+  background-color: #fcb500;
+  vertical-align: middle;
+  text-shadow: -2px -2px 0 #000, /* Обводка сверху слева */ 1px -1px 0 #bd6821,
+    /* Обводка сверху справа */ -1px 1px 0 #bd6821,
+    /* Обводка снизу слева */ 1px 1px 0 #bd6821,
+    /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
+}
+
+.item-actions .action.disabled {
+    background-color: #A8A6A2;
+    color: #6C6565;
+    text-shadow: none;
+}
+
+.arrow-right {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+}
+
+.arrow-left {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+}
