@@ -12,7 +12,7 @@ public class UserService : IUserService
         _dbContext = dbContext;
     }
 
-    public async Task Init(long userId)
+    public async Task Init(long userId, string username, string firstName, string lastName)
     {
         var user = await _dbContext.Users.FindAsync(userId);
 
@@ -24,6 +24,9 @@ public class UserService : IUserService
         user = new User
         {
             Id = userId,
+            Username = username,
+            FirstName = firstName,
+            LastName = lastName,
         };
 
         var score = new Score

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using StoneBot.Domain;
+using StoneBot.Contracts;
 using StoneBot.Services;
 
 namespace StoneBot.Controllers;
@@ -18,11 +17,19 @@ public class UsersController : Controller
         _scoresService = scoresService;
     }
 
-    [HttpPut("init/{userId:long}")]
-    public async Task<Score> Init([FromRoute] long userId)
+    [HttpPost("init")]
+    public async Task<GetUserScoreResponse> Init(
+        [FromBody] InitUserRequest request)
     {
-        await _userService.Init(userId);
-        var score = await _scoresService.GetScoresByUser(userId);
-        return score;
+        await _userService.Init(request.UserId, request.Username, request.FirstName, request.LastName);
+        var score = await _scoresService.GetScoresByUser(request.UserId);
+
+        return new GetUserScoreResponse
+        {
+            TotalScore = score.TotalScore,
+            TodayScore = score.TodayScore,
+            CurrentScore = score.CurrentScore,
+            TodayLimit = ScoresService.MaxScoreCountPerDay
+        };
     }
 }
