@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace StoneBot.Data.Migrations
+namespace StoneBot.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -15,13 +16,13 @@ namespace StoneBot.Data.Migrations
                 name: "Backgrounds",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Slug = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Discription = table.Column<string>(type: "TEXT", nullable: false),
-                    Url = table.Column<string>(type: "TEXT", nullable: false),
-                    Price = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Slug = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Discription = table.Column<string>(type: "text", nullable: false),
+                    Url = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,14 +33,14 @@ namespace StoneBot.Data.Migrations
                 name: "Boosters",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CoinsCountPerClick = table.Column<int>(type: "INTEGER", nullable: false),
-                    Slug = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Discription = table.Column<string>(type: "TEXT", nullable: false),
-                    Url = table.Column<string>(type: "TEXT", nullable: false),
-                    Price = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CoinsCountPerClick = table.Column<int>(type: "integer", nullable: false),
+                    Slug = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Discription = table.Column<string>(type: "text", nullable: false),
+                    Url = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,15 +51,15 @@ namespace StoneBot.Data.Migrations
                 name: "Miners",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CoinsCountPerTimeSpan = table.Column<int>(type: "INTEGER", nullable: false),
-                    TimeSpan = table.Column<TimeSpan>(type: "TEXT", nullable: false),
-                    Slug = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Discription = table.Column<string>(type: "TEXT", nullable: false),
-                    Url = table.Column<string>(type: "TEXT", nullable: false),
-                    Price = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CoinsCountPerTimeSpan = table.Column<int>(type: "integer", nullable: false),
+                    TimeSpan = table.Column<TimeSpan>(type: "interval", nullable: false),
+                    Slug = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Discription = table.Column<string>(type: "text", nullable: false),
+                    Url = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,13 +70,13 @@ namespace StoneBot.Data.Migrations
                 name: "Skins",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Slug = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Discription = table.Column<string>(type: "TEXT", nullable: false),
-                    Url = table.Column<string>(type: "TEXT", nullable: false),
-                    Price = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Slug = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Discription = table.Column<string>(type: "text", nullable: false),
+                    Url = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,8 +87,11 @@ namespace StoneBot.Data.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Username = table.Column<string>(type: "text", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,12 +102,12 @@ namespace StoneBot.Data.Migrations
                 name: "Scores",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<long>(type: "INTEGER", nullable: false),
-                    TodayScore = table.Column<int>(type: "INTEGER", nullable: false),
-                    TotalScore = table.Column<int>(type: "INTEGER", nullable: false),
-                    CurrentScore = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    TodayScore = table.Column<int>(type: "integer", nullable: false),
+                    TotalScore = table.Column<int>(type: "integer", nullable: false),
+                    CurrentScore = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,9 +124,9 @@ namespace StoneBot.Data.Migrations
                 name: "UserBackgrounds",
                 columns: table => new
                 {
-                    UserId = table.Column<long>(type: "INTEGER", nullable: false),
-                    BackgroundId = table.Column<long>(type: "INTEGER", nullable: false),
-                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    BackgroundId = table.Column<long>(type: "bigint", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -145,9 +149,9 @@ namespace StoneBot.Data.Migrations
                 name: "UserBoosters",
                 columns: table => new
                 {
-                    UserId = table.Column<long>(type: "INTEGER", nullable: false),
-                    BoosterId = table.Column<long>(type: "INTEGER", nullable: false),
-                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    BoosterId = table.Column<long>(type: "bigint", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -170,9 +174,10 @@ namespace StoneBot.Data.Migrations
                 name: "UserMiners",
                 columns: table => new
                 {
-                    UserId = table.Column<long>(type: "INTEGER", nullable: false),
-                    MinerId = table.Column<long>(type: "INTEGER", nullable: false),
-                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    MinerId = table.Column<long>(type: "bigint", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    StartedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -195,9 +200,9 @@ namespace StoneBot.Data.Migrations
                 name: "UserSkins",
                 columns: table => new
                 {
-                    UserId = table.Column<long>(type: "INTEGER", nullable: false),
-                    SkinId = table.Column<long>(type: "INTEGER", nullable: false),
-                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    SkinId = table.Column<long>(type: "bigint", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {

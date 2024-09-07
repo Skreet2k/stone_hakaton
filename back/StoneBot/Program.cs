@@ -17,7 +17,6 @@ services.AddSwaggerGen(options =>
 
 services.AddControllers();
 services.AddMvc();
-services.AddDbContext<StoneBotDbContext>();
 services.AddScoped<IUserService, UserService>();
 services.AddScoped<IScoresService, ScoresService>();
 services.AddScoped<ISkinsService, SkinsService>();
@@ -25,6 +24,9 @@ services.AddScoped<IBackgroundsService, BackgroundsService>();
 services.AddScoped<IMinersService, MinersService>();
 services.AddScoped<IBoostersService, BoostersService>();
 services.AddScoped<IShopService, ShopService>();
+
+services.AddDbContext<StoneBotDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
 
 builder.Services.AddCors();
 

@@ -7,7 +7,7 @@ namespace StoneBot.Services;
 public class ScoresService : IScoresService
 {
     // TODO move to config or relate to the level
-    public const int MaxScoreCountPerDay = 1000;
+    public const int MaxScoreCountPerDay = 10000;
 
     private readonly StoneBotDbContext _dbContext;
 
