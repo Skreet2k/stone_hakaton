@@ -8,13 +8,22 @@ public class ShopService : IShopService
 {
     private readonly StoneBotDbContext _dbContext;
     private readonly IMinersService _minersService;
+    private readonly IBoostersService _boostersService;
+    private readonly IBackgroundsService _backgroundsService;
+    private readonly ISkinsService _skinsService;
 
     public ShopService(
         StoneBotDbContext dbContext,
-        IMinersService minersService)
+        IMinersService minersService,
+        IBoostersService boostersService,
+        IBackgroundsService backgroundsService,
+        ISkinsService skinsService)
     {
         _dbContext = dbContext;
         _minersService = minersService;
+        _boostersService = boostersService;
+        _backgroundsService = backgroundsService;
+        _skinsService = skinsService;
     }
 
     public async Task BuySkin(long userId, long itemId)
@@ -51,6 +60,8 @@ public class ShopService : IShopService
 
         await _dbContext.UserSkins.AddAsync(userItem);
         await _dbContext.SaveChangesAsync();
+
+        await _skinsService.Apply(userId, itemId);
     }
 
     public async Task BuyBackground(long userId, long itemId)
@@ -77,6 +88,8 @@ public class ShopService : IShopService
 
         await _dbContext.UserSkins.AddAsync(userItem);
         await _dbContext.SaveChangesAsync();
+
+        await _backgroundsService.Apply(userId, itemId);
     }
 
     public async Task BuyBooster(long userId, long itemId)
@@ -103,6 +116,8 @@ public class ShopService : IShopService
 
         await _dbContext.UserBoosters.AddAsync(userItem);
         await _dbContext.SaveChangesAsync();
+
+        await _boostersService.Apply(userId, itemId);
     }
 
     public async Task BuyMiner(long userId, long itemId)
