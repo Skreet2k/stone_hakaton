@@ -26,9 +26,17 @@ services.AddScoped<IMinersService, MinersService>();
 services.AddScoped<IBoostersService, BoostersService>();
 services.AddScoped<IShopService, ShopService>();
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseCors(x => x
+    .WithOrigins("http://localhost:4200", "https://stone.onebranch.dev")
+    .AllowAnyMethod()
+    .AllowCredentials()
+    .AllowAnyHeader());
 
 app.UseRouting();
 app.MapControllers();
