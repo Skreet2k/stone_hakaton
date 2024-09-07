@@ -9,4 +9,6 @@ public class UserDto
     public string LastName { get; set; }
 
     public long? SkinId { get; set; }
+
+    public string Avatar { get; set; } = "images/avatar.png";
 }
