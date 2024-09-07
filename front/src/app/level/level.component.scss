@@ -1,0 +1,58 @@
+/* Основной контейнер для уровня */
+.level-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  width: 100vw;
+}
+
+/* Текст уровня */
+.level-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
+  text-shadow: -2px -2px 0 #000, /* Обводка сверху слева */ 2px -2px 0 #000,
+    /* Обводка сверху справа */ -2px 2px 0 #000,
+    /* Обводка снизу слева */ 2px 2px 0 #000,
+    /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
+  animation: levelChange 1s ease; /* Применение анимации */
+}
+
+/* Контейнер для полосы прогресса */
+.progress-bar {
+  width: 200px;
+  height: 30px;
+  background-color: #e3a400; /* Цвет фона */
+  border-radius: 14px;
+  box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.3); /* Внутренняя тень для объема */
+  padding: 5px;
+  position: relative;
+  width: 80%;
+}
+
+/* Полоса прогресса */
+.progress {
+  height: 100%;
+  background-color: #ffba00; /* Цвет полосы прогресса */
+  border-radius: 14px;
+  background: linear-gradient(90deg, #82ea0c 0%, #9aef19 25%, #e5ff44 100%);
+  transition: width 0.5s ease; /* Плавное изменение ширины за 0.5 секунды */
+}
+
+/* Анимация изменения уровня */
+@keyframes levelChange {
+  0% {
+    transform: scale(1);
+    color: #fff;
+  }
+  50% {
+    transform: scale(1.2);
+    color: #ffba00;
+  }
+  100% {
+    transform: scale(1);
+    color: #fff;
+  }
+}
