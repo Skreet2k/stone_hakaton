@@ -7,10 +7,14 @@ namespace StoneBot.Services;
 public class ShopService : IShopService
 {
     private readonly StoneBotDbContext _dbContext;
+    private readonly IMinersService _minersService;
 
-    public ShopService(StoneBotDbContext dbContext)
+    public ShopService(
+        StoneBotDbContext dbContext,
+        IMinersService minersService)
     {
         _dbContext = dbContext;
+        _minersService = minersService;
     }
 
     public async Task BuySkin(long userId, long itemId)
@@ -125,5 +129,7 @@ public class ShopService : IShopService
 
         await _dbContext.UserMiners.AddAsync(userItem);
         await _dbContext.SaveChangesAsync();
+
+        await _minersService.Apply(userId, itemId);
     }
 }

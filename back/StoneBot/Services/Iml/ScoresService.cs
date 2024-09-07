@@ -19,18 +19,13 @@ public class ScoresService : IScoresService
     public async Task<Score> GetScoresByUser(long userId)
     {
         var score = await _dbContext.Scores
-            .Where(x => x.UserId == userId)
-            .FirstOrDefaultAsync();
+            .FirstAsync(x => x.UserId == userId);
 
-        return score ?? await CreateScore(userId);
+        return score;
     }
 
     public async Task<Score> Click(long userId, int count)
     {
-        var score = await _dbContext.Scores
-            .FirstOrDefaultAsync(x => x.UserId == userId);
-
-        score ??= await CreateScore(userId);
 
         var multiplier = await _dbContext.UserBoosters
             .AsNoTracking()
@@ -41,6 +36,14 @@ public class ScoresService : IScoresService
 
         multiplier = multiplier == 0 ? 1 : multiplier;
         count *= multiplier;
+
+        return await AddConins(userId, count);
+    }
+
+    public async Task<Score> AddConins(long userId, int count)
+    {
+        var score = await _dbContext.Scores
+            .FirstAsync(x => x.UserId == userId);
 
         if (score.TodayScore + count > MaxScoreCountPerDay)
         {
@@ -106,17 +109,4 @@ public class ScoresService : IScoresService
             SkinId = skins.FirstOrDefault(x => x.UserId == user.Id)?.SkinId,
         };
     }
-
-    private async Task<Score> CreateScore(long userId)
-    {
-        var todayScore = new Score
-        {
-            UserId = userId,
-        };
-
-        await _dbContext.Scores.AddAsync(todayScore);
-        await _dbContext.SaveChangesAsync();
-        return todayScore;
-    }
-
 }

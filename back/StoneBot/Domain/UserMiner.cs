@@ -10,4 +10,6 @@ public class UserMiner
     public Miner Miner { get; set; }
 
     public bool IsActive { get; set; }
+
+    public DateTime StartedAt { get; set; }
 }
