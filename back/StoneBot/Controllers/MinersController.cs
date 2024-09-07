@@ -64,7 +64,7 @@ public class MinersController : Controller
     ///     Collect coins from current miner.
     /// </summary>
     /// <param name="userId"> User ID.</param>
-    [HttpPut]
+    [HttpPut("collect")]
     public async Task<GetUserScoreResponse> Collect(
         [FromQuery] [BindRequired] long userId)
     {
