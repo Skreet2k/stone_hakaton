@@ -1,1 +1,32 @@
-<img src="images/mining1.png" />
+<div class="mining">
+  <div class="content">
+    <div class="title">Mines</div>
+    <div class="mine-list">
+      <div *ngFor="let mine of mines" class="mine">
+        <div class="image-container"><img src="images/mining1.png" /></div>
+        <div class="info">
+          <span class="name">{{ mine.name }}</span>
+          <div class="action" [ngSwitch]="mine.status.state">
+            <div *ngSwitchCase="mineState.None">
+              <button>Недоступно</button>
+            </div>
+            <div *ngSwitchCase="mineState.Locked">
+              <span>Недоступно</span>
+            </div>
+            <div *ngSwitchCase="mineState.Available">
+              <button>Купить за {{ mine.price }}</button>
+            </div>
+            <div *ngSwitchCase="mineState.Owned">
+              <button>Запускай</button>
+            </div>
+            <div *ngSwitchCase="mineState.Mining">
+              <span class="timer">
+                Получить {{ mine.reward }} через {{ mine.status.time }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
