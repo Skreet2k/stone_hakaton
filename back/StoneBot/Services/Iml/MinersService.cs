@@ -7,10 +7,46 @@ namespace StoneBot.Services;
 public class MinersService : IMinersService
 {
     private readonly StoneBotDbContext _dbContext;
+    private readonly IScoresService _scoresService;
 
-    public MinersService(StoneBotDbContext dbContext)
+    public MinersService(
+        StoneBotDbContext dbContext,
+        IScoresService scoresService)
     {
         _dbContext = dbContext;
+        _scoresService = scoresService;
+    }
+
+    public async Task<ActiveMinerDto?> GetCurrent(long userId)
+    {
+        var userMiner = await _dbContext.UserMiners
+            .Include(userMiner => userMiner.Miner)
+            .Where(x => x.UserId == userId)
+            .Where(x => x.IsActive)
+            .FirstOrDefaultAsync();
+
+        if (userMiner == null)
+        {
+            return null;
+        }
+
+        var collected = CountCollecedCoins(userMiner);
+
+        return new ActiveMinerDto
+        {
+            Miner = userMiner.Miner,
+            StartedAt = userMiner.StartedAt,
+            CollectedInMine = collected
+        };
+    }
+
+    private static int CountCollecedCoins(UserMiner userMiner)
+    {
+        var workedTime = DateTime.UtcNow - userMiner.StartedAt;
+
+        var times = (int) Math.Floor(workedTime / userMiner.Miner.TimeSpan);
+        var collected = times * userMiner.Miner.CoinsCountPerTimeSpan;
+        return collected;
     }
 
     public async Task<List<Miner>> Get(long? userId)
@@ -46,19 +82,49 @@ public class MinersService : IMinersService
 
         userMiners.ForEach(x => x.IsActive = false);
         miner.IsActive = true;
+        miner.StartedAt = DateTime.UtcNow;
 
         await _dbContext.SaveChangesAsync();
+
 
         return miner.Miner;
     }
 
-    public Task<Miner> Add(Miner miner)
+    public async Task Collect(long userId)
     {
-        throw new NotImplementedException();
+        var userMiner = await _dbContext.UserMiners
+            .Include(userMiner => userMiner.Miner)
+            .Where(x => x.UserId == userId)
+            .Where(x => x.IsActive)
+            .FirstOrDefaultAsync();
+
+        if (userMiner == null)
+        {
+            return;
+        }
+
+        var collected = CountCollecedCoins(userMiner);
+        await _scoresService.AddConins(userId, collected);
+
+        userMiner.StartedAt = DateTime.UtcNow;
+        await _dbContext.SaveChangesAsync();
     }
 
-    public Task Delete(long minerId)
+    public async Task<Miner> Add(Miner miner)
     {
-        throw new NotImplementedException();
+        await _dbContext.Miners.AddAsync(miner);
+        await _dbContext.SaveChangesAsync();
+
+        return miner;
+    }
+
+    public async Task Delete(long minerId)
+    {
+        var miner = await _dbContext.Miners.FindAsync(minerId);
+        if (miner != null)
+        {
+            _dbContext.Miners.Remove(miner);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

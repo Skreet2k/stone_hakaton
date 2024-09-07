@@ -13,6 +13,17 @@ public class BoostersService : IBoostersService
         _dbContext = dbContext;
     }
 
+    public async Task<Booster?> GetCurrent(long userId)
+    {
+        var booster = await _dbContext.UserBoosters
+            .Where(x => x.UserId == userId)
+            .Where(x => x.IsActive)
+            .Select(x => x.Booster)
+            .FirstOrDefaultAsync();
+
+        return booster;
+    }
+
     public async Task<List<Booster>> Get(long? userId)
     {
         List<Booster> boosters;
@@ -51,13 +62,21 @@ public class BoostersService : IBoostersService
         return booster.Booster;
     }
 
-    public Task<Booster> Add(Booster booster)
+    public async Task<Booster> Add(Booster booster)
     {
-        throw new NotImplementedException();
+        await _dbContext.Boosters.AddAsync(booster);
+        await _dbContext.SaveChangesAsync();
+
+        return booster;
     }
 
-    public Task Delete(long boosterId)
+    public async Task Delete(long boosterId)
     {
-        throw new NotImplementedException();
+        var booster = await _dbContext.Boosters.FindAsync(boosterId);
+        if (booster != null)
+        {
+            _dbContext.Boosters.Remove(booster);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

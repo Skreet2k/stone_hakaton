@@ -22,7 +22,7 @@ public class SkinsController : Controller
     /// <param name="userId"> User ID</param>
     /// <returns> Current User Skin</returns>
     [HttpGet("current")]
-    public async Task<Skin?> GetSkins([FromQuery] long userId)
+    public async Task<Skin?> GetCurrent([FromQuery] long userId)
     {
         var skin = await _skinsService.GetCurrent(userId);
         return skin;
