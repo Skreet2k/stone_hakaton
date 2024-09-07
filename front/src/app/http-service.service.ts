@@ -8,7 +8,7 @@ import { User } from './telegram.service';
 })
 export class HttpService {
 
-  private baseUrl = "https://localhost:44379/"
+  private baseUrl = "https://stone-api.onebranch.dev/"
 
   constructor(private httpClient: HttpClient) { }
 
@@ -23,6 +23,10 @@ export class HttpService {
   click(userId: number): Observable<UserScore> {
     return this.httpClient.put<UserScore>(this.baseUrl + "scores/click", {userId: userId, count: 1});
   }
+
+  getLeaderboard(userId: number): Observable<Leaderboard> {
+    return this.httpClient.get<Leaderboard>(this.baseUrl + "scores/leaderboard?userId=" + userId);
+  }
 }
 
 export interface UserScore {
@@ -30,4 +34,15 @@ export interface UserScore {
   todayLimit: number;
   todayScore: number;
   currentScore: number;
+}
+
+export interface Leaderboard {
+  currentUser: Leader;
+  leaders: Leader[]
+}
+
+export interface Leader {
+  order: number;
+  score: number;
+  user: User
 }

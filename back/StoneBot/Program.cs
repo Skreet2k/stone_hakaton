@@ -9,7 +9,7 @@ var services = builder.Services;
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(options =>
 {
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
     options.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);

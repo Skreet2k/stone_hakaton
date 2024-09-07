@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LeaderboardService, Leader } from '../leaderboard.service';
+import { LeaderboardService } from '../leaderboard.service';
 import { NgClass, NgForOf } from '@angular/common';
+import { Leaderboard } from '../http-service.service';
 
 @Component({
   standalone: true,
@@ -11,11 +12,13 @@ import { NgClass, NgForOf } from '@angular/common';
 })
 export class LeaderboardComponent implements OnInit {
 
-  leaders: Leader[] = [];
+  leaderBoard: Leaderboard | undefined;
 
   constructor(private leaderboardService: LeaderboardService) { }
 
   ngOnInit(): void {
-    this.leaders = this.leaderboardService.getLeaders();
+     this.leaderboardService.getLeaders().subscribe(r => {
+      this.leaderBoard = r;
+    });
   }
 }

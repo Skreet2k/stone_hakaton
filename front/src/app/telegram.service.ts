@@ -5,6 +5,7 @@ export interface User {
   firstName: string;
   lastName: string;
   username: string;
+  avatar: string;
 }
 
 @Injectable({
@@ -16,6 +17,7 @@ export class TelegramService {
     firstName: 'Alexander',
     lastName: 'Kharkovskiy',
     username: 'akharkovskiy',
+    avatar: 'images/avatar.png'
   };
 
   // Проверим, что Telegram WebApp доступен
@@ -34,6 +36,7 @@ export class TelegramService {
           lastName: user.last_name,
           userId: user.id,
           username: user.username,
+          avatar: 'images/avatar.png'
         };
       } else {
         console.error('Нет данных о пользователе');

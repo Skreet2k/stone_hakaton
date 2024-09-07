@@ -7,15 +7,15 @@
     </div>
 
     <div class="table">
-      <div *ngFor="let leader of leaders; let i = index" class="leader-item">
+      <div *ngFor="let leader of leaderBoard?.leaders; let i = index" class="leader-item">
         <div class="rank-icon">
           <span class="rank-text">{{ i + 1 }}</span>
         </div>
-        <img [src]="leader.avatar" alt="avatar" class="avatar" />
-        <div class="name">{{ leader.name }}</div>
+        <img [src]="leader.user.avatar" alt="avatar" class="avatar" />
+        <div class="name">{{ leader.user.username }}</div>
         <div class="trophies">
           <img src="images/trophy.svg" alt="trophy" />
-          <span>{{ leader.trophies }}</span>
+          <span>{{ leader.score % 100 + 1 }}</span>
         </div>
       </div>
     </div>
@@ -24,11 +24,11 @@
         <div class="rank-highlight-icon">
           <span class="rank-highlight-text">999</span>
         </div>
-        <img [src]="leaders[6].avatar" alt="avatar" class="avatar" />
-        <div class="name">{{ leaders[6].name }}</div>
+        <img [src]="leaderBoard?.currentUser?.user?.avatar" alt="avatar" class="avatar" />
+        <div class="name">{{ leaderBoard?.currentUser?.user?.username }}</div>
         <div class="trophies">
           <img src="images/trophy.svg" alt="trophy" />
-          <span>{{ leaders[6].trophies }}</span>
+          <span>{{leaderBoard?.currentUser!.score % 100 + 1 }}</span>
         </div>
       </div>
     </div>
