@@ -8,10 +8,10 @@
           <span class="name">{{ mine.name }}</span>
           <div class="action" [ngSwitch]="mine.status.state">
             <div *ngSwitchCase="mineState.None">
-              <div class="action disabled" disabled>Unavilable</div>
+              <div class="action disabled" disabled>Unavailable</div>
             </div>
             <div *ngSwitchCase="mineState.Locked">
-              <div class="action disabled" disabled=>Unavilable</div>
+              <div class="action disabled" disabled=>Unavailable</div>
             </div>
             <div *ngSwitchCase="mineState.Available">
               <div class="action green" (click)="purchaseMine(mine)">{{ mine.price }} Upgrade</div>
@@ -27,7 +27,7 @@
               </div>
               <div *ngIf="!mine.status.time">
                 <div class="action yellow" (click)="getReward(mine)">Get {{mine.reward}}</div>
-              </div>              
+              </div>
             </div>
           </div>
         </div>
