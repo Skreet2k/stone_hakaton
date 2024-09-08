@@ -78,6 +78,13 @@ export class HttpService {
       this.baseUrl + 'miners/current?userId=' + userId
     );
   }
+
+  purchaseMine(userId: number, mineId: number): Observable<void> {
+    return this.httpClient.put<void>(
+      this.baseUrl + 'miners?userId=' + userId + '&minerId=' + mineId,
+      {}
+    );
+  }
 }
 
 export interface ActiveMine {
@@ -96,6 +103,21 @@ export interface Mine {
   discription: string;
   url: string;
   price: number;
+  status: MineStatus
+}
+
+export interface MineStatus {
+  state: MineState;
+  time?: number;
+  timeString?: string;
+}
+
+export enum MineState {
+  None,
+  Locked,
+  Available,
+  Owned,
+  Mining
 }
 
 export interface UserScore {
