@@ -15,8 +15,8 @@ export class HttpService {
     return this.httpClient.get<UserScore>(this.baseUrl + 'scores/' + userId);
   }
 
-  initUser(user: User) {
-    this.httpClient.post(this.baseUrl + 'users/init', user).subscribe();
+  initUser(user: User): Observable<void> {
+    return this.httpClient.post<void>(this.baseUrl + 'users/init', user);
   }
 
   click(userId: number): Observable<UserScore> {

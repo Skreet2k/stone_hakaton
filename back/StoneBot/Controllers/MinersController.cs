@@ -46,7 +46,7 @@ public class MinersController : Controller
     }
 
     /// <summary>
-    ///     Apply miner to user.
+    ///     Start miner to user.
     /// </summary>
     /// <param name="userId"> User ID.</param>
     /// <param name="minerId"> Miner ID. </param>

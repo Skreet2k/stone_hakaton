@@ -9,6 +9,7 @@ import { ClickCounterService } from '../click-counter.service';
 export interface Stone extends Skin {
   isPurchased: boolean;
   isApplied: boolean;
+  noMoney: boolean;
 }
 
 @Component({
@@ -24,6 +25,7 @@ export class ShopComponent implements OnInit {
   index: number = 0;
   private userSkins: Skin[] = [];
   private currentSkin: Skin | undefined;
+  money: number | undefined;
 
   constructor(
     private skinService: SkinService,
@@ -44,6 +46,9 @@ export class ShopComponent implements OnInit {
         this.fillCurrentStone();
       }
     );
+    this.clickService.clickCountSubscription().subscribe(r => {
+      this.money = r?.currentScore;
+    })
   }
 
   clickRight() {
@@ -104,6 +109,7 @@ export class ShopComponent implements OnInit {
       ...currentSkin,
       isPurchased: isPurchased,
       isApplied: isApplied,
+      noMoney: currentSkin.price > (this.money ?? 0)
     };
   }
 }

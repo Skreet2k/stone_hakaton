@@ -16,12 +16,18 @@
       </div>
       <div class="item-actions">
         <div
-          *ngIf="!selectedSkin?.isPurchased"
+          *ngIf="!selectedSkin?.isPurchased && !selectedSkin?.noMoney"
           class="action buy"
           (click)="clickBuy(selectedSkin?.id!)"
         >
           Buy
         </div>
+        <div
+        *ngIf="!selectedSkin?.isPurchased && selectedSkin?.noMoney"
+        class="action buy disabled"
+      >
+        Buy
+      </div>
         <div
           *ngIf="selectedSkin?.isPurchased"
           class="action buy disabled"
