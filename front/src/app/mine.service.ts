@@ -34,23 +34,18 @@ export class MineService {
   getMines(): Mine[] {
     return [
       {
-        name: 'Базовая шахта ', price: 1500, reward: 50, src: 'images/mining1.png', status: {
-          state: MineState.Locked
+        name: 'Basic', price: 500, reward: 50, src: 'images/mining1.png', status: {
+          state: MineState.Mining
         }
       },
       {
-        name: 'Базовая шахта ', price: 1500, reward: 50, src: 'images/mining1.png', status: {
+        name: 'Advenced', price: 1500, reward: 50, src: 'images/mining2.png', status: {
           state: MineState.Available
         }
       },
       {
-        name: 'Базовая шахта ', price: 1500, reward: 50, src: 'images/mining1.png', status: {
-          state: MineState.Owned
-        }
-      },
-      {
-        name: 'Базовая шахта ', price: 1500, reward: 50, src: 'images/mining1.png', status: {
-          state: MineState.Mining, time: 3600
+        name: 'Cyberpunk', price: 3000, reward: 50, src: 'images/mining3.png', status: {
+          state: MineState.Locked
         }
       }
     ];
