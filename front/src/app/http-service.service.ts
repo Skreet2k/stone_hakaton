@@ -9,7 +9,7 @@ import { User } from './telegram.service';
 export class HttpService {
   private baseUrl = 'https://stone-api.onebranch.dev/';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   getUserScore(userId: number): Observable<UserScore> {
     return this.httpClient.get<UserScore>(this.baseUrl + 'scores/' + userId);
@@ -80,9 +80,9 @@ export class HttpService {
   }
 
   purchaseMine(userId: number, mineId: number): Observable<void> {
-    return this.httpClient.put<void>(
-      this.baseUrl + 'miners?userId=' + userId + '&minerId=' + mineId,
-      {}
+    return this.httpClient.post<any>(
+      this.baseUrl + 'shop/miners/' + mineId,
+      { userId: userId }
     );
   }
 }
