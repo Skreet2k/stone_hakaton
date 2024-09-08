@@ -14,7 +14,7 @@
               <div class="action disabled" disabled=>Unavilable</div>
             </div>
             <div *ngSwitchCase="mineState.Available">
-              <div class="action green" (click)="purchaseMine(mine)>{{ mine.price }} Upgrade</div>
+              <div class="action green" (click)="purchaseMine(mine)">{{ mine.price }} Upgrade</div>
             </div>
             <div *ngSwitchCase="mineState.Owned">
               <div class="action yellow" (click)="startMining(mine)">Start farming</div>
