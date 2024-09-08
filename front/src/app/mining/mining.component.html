@@ -3,7 +3,7 @@
     <div class="title">Mines</div>
     <div class="mine-list">
       <div *ngFor="let mine of mines" class="mine">
-        <div class="image-container"><img [src]="mine.src" /></div>
+        <div class="image-container"><img [src]="mine.url" /></div>
         <div class="info">
           <span class="name">{{ mine.name }}</span>
           <div class="action" [ngSwitch]="mine.status.state">
@@ -16,18 +16,18 @@
             <div *ngSwitchCase="mineState.Available">
               <div class="action green" (click)="purchaseMine(mine)">{{ mine.price }} Upgrade</div>
             </div>
-            <div *ngSwitchCase="mineState.Owned">
+            <!-- <div *ngSwitchCase="mineState.Owned">
               <div class="action yellow" (click)="startMining(mine)">Start farming</div>
-            </div>
+            </div> -->
             <div *ngSwitchCase="mineState.Mining">
-              <div *ngIf="mine.status.time">
+              <!-- <div *ngIf="mine.status.time">
                 <div disabled class="action-button timer locked-button">
-                  {{ mine.reward }} farming {{ mine.status.timeString}}
+                  {{ mine.coinsCountPerTimeSpan }} farming {{ mine.status.timeString || ''}}
                 </div>
-              </div>
-              <div *ngIf="!mine.status.time">
-                <div class="action yellow" (click)="getReward(mine)">Get {{mine.reward}}</div>
-              </div>
+              </div> -->
+              <!-- <div *ngIf="!mine.status.time">
+                <div class="action yellow" (click)="getReward(mine)">Get {{mine.coinsCountPerTimeSpan}}</div>
+              </div> -->
             </div>
           </div>
         </div>

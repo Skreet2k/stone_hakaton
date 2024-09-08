@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MineService, Mine, MineStatus, MineState } from '../mine.service';
+import { MineService } from '../mine.service';
 import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { Mine, MineState } from '../http-service.service';
 
 @Component({
   selector: 'app-mining',
@@ -20,29 +21,50 @@ export class MiningComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.mines = this.mineService.getMines();
+    this.mineService.getMines().subscribe((allMines) => {
+      this.mines = allMines.sort((a, b) => (a.price > b.price) ? 1 : (a.price < b.price) ? -1 : 0);
 
-    this.mines.forEach(m => {
-      if (m.status.time) {
-        setTimeout(() => {
-          this.timer(m);
-        }, 1000);
-      }
-    })
+      this.mineService.getUserMines().subscribe((ownedMines) => {
+        this.mines.forEach(mine => {
+          const ownedMine = ownedMines.find(x => x.id == mine.id);
+          if (!ownedMine) {
+            mine.status = {
+              state: MineState.Available
+            }
+          }
+
+          if (ownedMine) {
+            mine.status = {
+              state: MineState.Owned
+            }
+          }
+        })
+      });
+    });
+
+
+
+    // this.mines.forEach(m => {
+    //   if (m.status.time) {
+    //     setTimeout(() => {
+    //       this.timer(m);
+    //     }, 1000);
+    //   }
+    // })
   }
 
-  async timer(mine: Mine) {
-    if (mine.status.time) {
-      mine.status.time--;
-      mine.status.timeString = `${Math.floor(mine.status.time / 60)}:${mine.status.time % 60}`
-      await setTimeout(() => {
-        this.timer(mine);
-      }, 1000);
-    }
-  }
+  // async timer(mine: Mine) {
+  //   if (mine.status.time) {
+  //     mine.status.time--;
+  //     mine.status.timeString = `${Math.floor(mine.status.time / 60)}:${mine.status.time % 60}`
+  //     await setTimeout(() => {
+  //       this.timer(mine);
+  //     }, 1000);
+  //   }
+  // }
 
   async purchaseMine(mine: Mine) {
-    this.mineService.purchaseMine(mine);
+    this.mineService.purchaseMine(mine).subscribe(r => { });
   }
 
   async startMining(mine: Mine) {
