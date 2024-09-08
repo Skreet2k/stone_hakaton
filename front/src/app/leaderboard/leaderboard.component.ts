@@ -13,6 +13,7 @@ import { Leaderboard } from '../http-service.service';
 export class LeaderboardComponent implements OnInit {
 
   leaderBoard: Leaderboard | undefined;
+  Math: Math = Math;
 
   constructor(private leaderboardService: LeaderboardService) { }
 

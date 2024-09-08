@@ -7,7 +7,10 @@
     </div>
 
     <div class="table">
-      <div *ngFor="let leader of leaderBoard?.leaders; let i = index" class="leader-item">
+      <div
+        *ngFor="let leader of leaderBoard?.leaders; let i = index"
+        class="leader-item"
+      >
         <div class="rank-icon">
           <span class="rank-text">{{ leader.order }}</span>
         </div>
@@ -15,20 +18,28 @@
         <div class="name">{{ leader.user.username }}</div>
         <div class="trophies">
           <img src="images/trophy.svg" alt="trophy" />
-          <span>{{ leader.score % 100 + 1 }}</span>
+          <span>{{ Math.floor((leader?.score ?? 0) / 100) + 1 }}</span>
         </div>
       </div>
     </div>
     <div class="highlight">
       <div class="leader-item">
         <div class="rank-highlight-icon">
-          <span class="rank-highlight-text">{{leaderBoard?.currentUser?.order}}</span>
+          <span class="rank-highlight-text">{{
+            leaderBoard?.currentUser?.order
+          }}</span>
         </div>
-        <img [src]="leaderBoard?.currentUser?.user?.avatar" alt="avatar" class="avatar" />
+        <img
+          [src]="leaderBoard?.currentUser?.user?.avatar"
+          alt="avatar"
+          class="avatar"
+        />
         <div class="name">{{ leaderBoard?.currentUser?.user?.username }}</div>
         <div class="trophies">
           <img src="images/trophy.svg" alt="trophy" />
-          <span>{{leaderBoard?.currentUser!.score % 100 + 1 }}</span>
+          <span>{{
+            Math.floor((leaderBoard?.currentUser?.score ?? 0) / 100) + 1
+          }}</span>
         </div>
       </div>
     </div>
