@@ -92,6 +92,13 @@ export class HttpService {
       { userId: userId }
     );
   }
+
+  getReward(userId: number): Observable<void> {
+    return this.httpClient.put<any>(
+      this.baseUrl + 'shop/miners/collect?userId=' + userId,
+      null
+    )
+  }
 }
 
 export interface ActiveMine {

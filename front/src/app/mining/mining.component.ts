@@ -88,6 +88,6 @@ export class MiningComponent implements OnInit {
   }
 
   async getReward(mine: Mine) {
-    this.mineService.getReward(mine);
+    this.mineService.getReward(mine).subscribe(r => { });
   }
 }

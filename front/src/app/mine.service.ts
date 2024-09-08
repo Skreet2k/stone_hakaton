@@ -39,6 +39,7 @@ export class MineService {
   }
 
   getReward(mine: Mine) {
-
+    const user = this.telegramService.getUserData();
+    return this.httpService.getReward(user.userId);
   }
 }
