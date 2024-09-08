@@ -26,22 +26,21 @@ export class HttpService {
     });
   }
 
-  getLeaderboard(userId: number, search: string | null): Observable<Leaderboard> {
+  getLeaderboard(
+    userId: number,
+    search: string | null
+  ): Observable<Leaderboard> {
     return this.httpClient.get<Leaderboard>(
       this.baseUrl + 'scores/leaderboard?userId=' + userId + '&search=' + search
     );
   }
 
   getAllSkins(): Observable<Skin[]> {
-    return this.httpClient.get<Skin[]>(
-      this.baseUrl + 'skins'
-    );
+    return this.httpClient.get<Skin[]>(this.baseUrl + 'skins');
   }
 
   getUserSkins(userId: number): Observable<Skin[]> {
-    return this.httpClient.get<Skin[]>(
-      this.baseUrl + 'skins?userId=' + userId
-    );
+    return this.httpClient.get<Skin[]>(this.baseUrl + 'skins?userId=' + userId);
   }
 
   getCurrentUserSkin(userId: number): Observable<Skin> {
@@ -51,12 +50,52 @@ export class HttpService {
   }
 
   buySkin(skinId: number, userId: number): Observable<void> {
-    return this.httpClient.post<void>(this.baseUrl + 'shop/skins/' + skinId + '?userId=' + userId, {});
+    return this.httpClient.post<void>(
+      this.baseUrl + 'shop/skins/' + skinId + '?userId=' + userId,
+      {}
+    );
   }
 
   applySkin(skinId: number, userId: number): Observable<void> {
-    return this.httpClient.put<void>(this.baseUrl + 'skins?skinId=' + skinId + '&userId=' + userId, {});
+    return this.httpClient.put<void>(
+      this.baseUrl + 'skins?skinId=' + skinId + '&userId=' + userId,
+      {}
+    );
   }
+
+  getMines(): Observable<Mine[]> {
+    return this.httpClient.get<Mine[]>(this.baseUrl + 'miners');
+  }
+
+  getUserMines(userId: number): Observable<Mine[]> {
+    return this.httpClient.get<Mine[]>(
+      this.baseUrl + 'miners?userId=' + userId
+    );
+  }
+
+  getActiveMine(userId: number): Observable<ActiveMine> {
+    return this.httpClient.get<ActiveMine>(
+      this.baseUrl + 'miners/current?userId=' + userId
+    );
+  }
+}
+
+export interface ActiveMine {
+  miner: Mine;
+  startedAt: string,
+  collectedInMine: number
+
+}
+
+export interface Mine {
+  coinsCountPerTimeSpan: number;
+  timeSpan: string;
+  id: number;
+  slug: string;
+  name: string;
+  discription: string;
+  url: string;
+  price: number;
 }
 
 export interface UserScore {
