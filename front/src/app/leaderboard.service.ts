@@ -16,8 +16,8 @@ export class LeaderboardService {
 
   constructor(private httpService: HttpService, private telegramService: TelegramService) { }
 
-  getLeaders(): Observable<Leaderboard> {
+  getLeaders(search: string | null): Observable<Leaderboard> {
     var user = this.telegramService.getUserData();
-    return this.httpService.getLeaderboard(user.userId);
+    return this.httpService.getLeaderboard(user.userId, search);
   }
 }

@@ -12,11 +12,8 @@ export class ClickCounterService {
   clicks$ = this.clicksSubject.asObservable();
   userId: any;
 
-  constructor(private http: HttpService, telegramService: TelegramService) {
-    this.userId = telegramService.getUserData()?.userId;
-    this.http.getUserScore(this.userId).subscribe(r => {
-      this.clicksSubject.next(r);
-    })
+  constructor(private http: HttpService, private telegramService: TelegramService) {
+    this.actualScore();
   }
 
   incrementClicks() {
@@ -31,5 +28,12 @@ export class ClickCounterService {
 
   getIncrementCount(): number {
     return this.incrementCount;
+  }
+
+  actualScore() {
+    this.userId = this.telegramService.getUserData()?.userId;
+    this.http.getUserScore(this.userId).subscribe(r => {
+      this.clicksSubject.next(r);
+    })
   }
 }

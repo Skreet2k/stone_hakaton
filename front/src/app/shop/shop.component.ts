@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SkinService } from '../skin.service';
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { Skin } from '../http-service.service';
 import { combineLatest } from 'rxjs';
 import { ShopService } from '../shop.service';
+import { ClickCounterService } from '../click-counter.service';
 
 export interface Stone extends Skin {
   isPurchased: boolean;
@@ -13,7 +14,7 @@ export interface Stone extends Skin {
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, NgIf],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss',
 })
@@ -26,7 +27,8 @@ export class ShopComponent implements OnInit {
 
   constructor(
     private skinService: SkinService,
-    private shopService: ShopService
+    private shopService: ShopService,
+    private clickService: ClickCounterService
   ) {}
 
   ngOnInit() {
@@ -71,6 +73,7 @@ export class ShopComponent implements OnInit {
       this.skinService.getUserSkins().subscribe((r) => {
         this.userSkins = r;
         this.fillCurrentStone();
+        this.clickService.actualScore();
       });
     });
   }
@@ -100,7 +103,7 @@ export class ShopComponent implements OnInit {
     this.selectedSkin = {
       ...currentSkin,
       isPurchased: isPurchased,
-      isApplied: !isPurchased || isApplied,
+      isApplied: isApplied,
     };
   }
 }

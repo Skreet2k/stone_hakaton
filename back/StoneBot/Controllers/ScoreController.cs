@@ -19,14 +19,16 @@ public class ScoreController : Controller
     ///     Get Leaderboard
     /// </summary>
     /// <param name="userId"></param>
+    /// <param name="search"></param>
     /// <param name="limit"> Leaderboard size. By default = 10</param>
     /// <returns> Leaderboard </returns>
     [HttpGet("leaderboard")]
     public async Task<LeaderboardDto> GetLeaderboard(
         [FromQuery] long userId,
+        [FromQuery] string? search,
         [FromQuery] int limit = 10)
     {
-        var leaderboard = await _scoresService.GetLearboard(userId, limit);
+        var leaderboard = await _scoresService.GetLearboard(userId, limit, search);
         return leaderboard;
     }
 

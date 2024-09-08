@@ -26,9 +26,9 @@ export class HttpService {
     });
   }
 
-  getLeaderboard(userId: number): Observable<Leaderboard> {
+  getLeaderboard(userId: number, search: string | null): Observable<Leaderboard> {
     return this.httpClient.get<Leaderboard>(
-      this.baseUrl + 'scores/leaderboard?userId=' + userId
+      this.baseUrl + 'scores/leaderboard?userId=' + userId + '&search=' + search
     );
   }
 

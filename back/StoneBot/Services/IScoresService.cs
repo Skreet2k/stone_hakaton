@@ -9,5 +9,5 @@ public interface IScoresService
     Task<Score>  Click(long userId, int count);
     Task<Score>  AddConins(long userId, int count);
 
-    Task<LeaderboardDto> GetLearboard(long userId, int limit);
+    Task<LeaderboardDto> GetLearboard(long userId, int limit, string? search);
 }

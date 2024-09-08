@@ -59,7 +59,7 @@ public class ScoresService : IScoresService
         return score;
     }
 
-    public async Task<LeaderboardDto> GetLearboard(long userId, int limit)
+    public async Task<LeaderboardDto> GetLearboard(long userId, int limit, string? search)
     {
         var scoreQuery = _dbContext.Scores
             .Include(score => score.User)
@@ -94,7 +94,7 @@ public class ScoresService : IScoresService
         return new LeaderboardDto
         {
             CurrentUser = currentUser,
-            Leaders = leaders.Take(limit).ToList()
+            Leaders = leaders.Where(l => string.IsNullOrEmpty(search) || l.User.Username.Contains(search, StringComparison.InvariantCultureIgnoreCase)).Take(limit).ToList()
         };
     }
 

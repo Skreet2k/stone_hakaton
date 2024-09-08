@@ -16,18 +16,33 @@
       </div>
       <div class="item-actions">
         <div
+          *ngIf="!selectedSkin?.isPurchased"
           class="action buy"
-          [ngClass]="{ disabled: selectedSkin?.isPurchased }"
           (click)="clickBuy(selectedSkin?.id!)"
         >
           Buy
         </div>
         <div
+          *ngIf="selectedSkin?.isPurchased"
+          class="action buy disabled"
+        >
+          Owned
+        </div>
+        <div *ngIf="selectedSkin?.isPurchased && !selectedSkin?.isApplied"
           class="action apply"
-          [ngClass]="{ disabled: selectedSkin?.isApplied }"
           (click)="clickApply(selectedSkin?.id!)"
         >
           Apply
+        </div>
+        <div *ngIg="!selectedSkin?.isPurchased"
+          class="action apply disabled"
+        >
+          Apply
+        </div>
+        <div *ngIf="selectedSkin?.isApplied"
+          class="action apply disabled"
+        >
+          Applied
         </div>
       </div>
     </div>

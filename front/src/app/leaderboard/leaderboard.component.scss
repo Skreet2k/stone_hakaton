@@ -35,7 +35,6 @@
 .search-container {
   position: relative;
   margin-bottom: 10px;
-  width: 200px;
   align-self: center;
 }
 
@@ -53,7 +52,7 @@
 
 .search-icon {
   position: absolute;
-  right: 5px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   width: 20px;
@@ -131,16 +130,15 @@
 .name {
   flex-grow: 1;
   text-align: left;
-  margin-left: 10px;
+  margin-left: 8px;
+  padding-left: 2px;
   color: #fff;
-  text-shadow: -2px -2px 0 #000, /* Обводка сверху слева */ 2px -2px 0 #000,
-    /* Обводка сверху справа */ -2px 2px 0 #000,
-    /* Обводка снизу слева */ 2px 2px 0 #000,
-    /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
-  white-space: nowrap; /* Текст не переносится */
-  overflow: hidden; /* Обрезаем всё за пределами блока */
-  text-overflow: ellipsis; /* Добавляем многоточие */
-  width: 140px;
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
+    2px 2px 0 #000, 0px 0px 4px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 120px;
 }
 
 .trophies {

@@ -2,8 +2,8 @@
   <div class="content">
     <div class="title">Leaderboard</div>
     <div class="search-container">
-      <input type="text" />
-      <img src="images/search-icon.png" alt="search" class="search-icon" />
+      <input type="text" [(ngModel)]="query" />
+      <img src="images/search-icon.png" alt="search" class="search-icon" (click)="search()" />
     </div>
 
     <div class="table">
