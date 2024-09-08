@@ -1,14 +1,15 @@
-import { NgForOf, NgStyle } from '@angular/common';
+import { NgForOf, NgIf, NgStyle } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ClickCounterService } from '../click-counter.service';
 import { LevelComponent } from '../level/level.component';
 import { Skin } from '../http-service.service';
 import { SkinService } from '../skin.service';
+import { HelloService } from '../hello.service';
 
 @Component({
   selector: 'app-clicker',
   standalone: true,
-  imports: [NgStyle, NgForOf, LevelComponent],
+  imports: [NgStyle, NgForOf, LevelComponent, NgIf],
   templateUrl: './clicker.component.html',
   styleUrl: './clicker.component.scss',
 })
@@ -19,19 +20,34 @@ export class ClickerComponent implements OnInit {
   isAnimating = false;
   incrementCount = 1;
   userSkin: Skin | undefined;
+  helloMessage: string | undefined;
+  showMessage: boolean = false;
   private timeout: any;
   private activeTouches: Set<number> = new Set(); // Множество для отслеживания уникальных касаний
 
   constructor(
     private clickCounterService: ClickCounterService,
-    private skinService: SkinService
+    private skinService: SkinService,
+    private helloService: HelloService
   ) {}
 
   ngOnInit(): void {
     this.incrementCount = this.clickCounterService.getIncrementCount();
-    this.skinService.getCurrentSkin().subscribe(r => {
+    this.skinService.getCurrentSkin().subscribe((r) => {
       this.userSkin = r;
-    })
+    });
+
+    this.clickCounterService.clickCountSubscription().subscribe((c) => {
+      const msg = this.helloService.getMessage(c?.totalScore ?? 0);
+
+      if (msg) {
+        this.helloMessage = msg;
+        this.showMessage = true;
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 10000);
+      }
+    });
   }
 
   onTouch(event: TouchEvent) {

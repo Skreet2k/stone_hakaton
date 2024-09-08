@@ -68,3 +68,18 @@
     opacity: 0;
   }
 }
+
+.message {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  color: #BD6821;
+  size: 16px;
+  background: #F9EEDC99;
+  border-radius: 20px;
+  padding: 10px;
+  font-weight: bold;
+}
