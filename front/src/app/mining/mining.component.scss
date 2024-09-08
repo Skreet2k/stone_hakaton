@@ -3,6 +3,30 @@
     padding: 20px;
     font-size: 22px;
 
+    .title {
+        color: #fff;
+        text-shadow:
+            -2px -2px 0 #000,
+            /* Обводка сверху слева */ 2px -2px 0 #000,
+            /* Обводка сверху справа */ -2px 2px 0 #000,
+            /* Обводка снизу слева */ 2px 2px 0 #000,
+            /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
+        background-color: #f2a14a;
+        padding: 10px 0;
+        box-shadow: 0 10px 0 0 #c2813b;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .content {
+        width: 100%;
+        background-color: #fde29c;
+        border-radius: 10px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+
     .mine {
         width: 90%;
         height: 5em;
@@ -26,37 +50,78 @@
             flex-direction: column;
 
             color: #fff;
-            text-shadow: -2px -2px 0 #000, /* Обводка сверху слева */ 2px -2px 0 #000,
-              /* Обводка сверху справа */ -2px 2px 0 #000,
-              /* Обводка снизу слева */ 2px 2px 0 #000,
-              /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
+            text-shadow:
+                -2px -2px 0 #000,
+                /* Обводка сверху слева */ 2px -2px 0 #000,
+                /* Обводка сверху справа */ -2px 2px 0 #000,
+                /* Обводка снизу слева */ 2px 2px 0 #000,
+                /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
 
             .name {
+                font-size: medium;
+            }
+
+            .action {
+                %action-buttons {
+                    appearance: none;
+                    background-color: #7ed70d;
+                    border-radius: 40em;
+                    border-style: none;
+                    box-shadow: #4f8508 0 -12px 6px inset;
+                    box-sizing: border-box;
+                    color: #000000;
+                    cursor: pointer;
+                    display: inline-block;
+                    font-family: -apple-system, sans-serif;
+                    font-size: 1.2rem;
+                    font-weight: 700;
+                    letter-spacing: -0.24px;
+                    margin: 0;
+                    outline: none;
+                    padding: 1rem 1.3rem;
+                    quotes: auto;
+                    text-align: center;
+                    text-decoration: none;
+                    transition: all 0.15s;
+                    user-select: none;
+                    -webkit-user-select: none;
+                    touch-action: manipulation;
+                    font-size: small;
+
+                    @media (min-width: 768px) {
+                        button {
+                            font-size: 1.5rem;
+                            padding: 0.75rem 2rem;
+                        }
+                    }
+                }
+
+                %active-buttons:hover {
+                    background-color: #ffc229;
+                    box-shadow: #ff6314 0 -6px 8px inset;
+                    transform: scale(1.125);
+                }
+
+                %active-buttons:active {
+                    transform: scale(1.025);
+                }
+
+                .active-button {
+                    @extend %action-buttons, %active-buttons;
+                }
+
+                .purchase-button {
+                    @extend %action-buttons, %active-buttons;
+                }
+
+                .locked-button {
+                    @extend %action-buttons;
+
+                    background-color: #a8a6a2;
+                    box-shadow: #868581 0 -12px 6px inset;
+
+                }
             }
         }
     }
-}
-
-.mining .content {
-    width: 100%;
-    background-color: #fde29c;
-    border-radius: 10px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-}
-
-.title {
-    color: #fff;
-    text-shadow:
-        -2px -2px 0 #000,
-        /* Обводка сверху слева */ 2px -2px 0 #000,
-        /* Обводка сверху справа */ -2px 2px 0 #000,
-        /* Обводка снизу слева */ 2px 2px 0 #000,
-        /* Обводка снизу справа */ 0px 0px 4px rgba(0, 0, 0, 0.5); /* Легкая тень для объема */
-    background-color: #f2a14a;
-    padding: 10px 0;
-    box-shadow: 0 10px 0 0 #c2813b;
-    margin-bottom: 20px;
-    font-weight: bold;
 }

@@ -11,6 +11,7 @@ export interface Mine {
 export interface MineStatus {
   state: MineState;
   time?: number;
+  timeString?: string;
 }
 
 export enum MineState {

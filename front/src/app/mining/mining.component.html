@@ -8,21 +8,26 @@
           <span class="name">{{ mine.name }}</span>
           <div class="action" [ngSwitch]="mine.status.state">
             <div *ngSwitchCase="mineState.None">
-              <button>Недоступно</button>
+              <button class="locked-button" disabled>Недоступно</button>
             </div>
             <div *ngSwitchCase="mineState.Locked">
-              <span>Недоступно</span>
+              <button class="action-button locked-button" disabled=>Недоступно</button>
             </div>
             <div *ngSwitchCase="mineState.Available">
-              <button>Купить за {{ mine.price }}</button>
+              <button class="action-button purchase-button">Купить за {{ mine.price }}</button>
             </div>
             <div *ngSwitchCase="mineState.Owned">
-              <button>Запускай</button>
+              <button class="action-button active-button">Запускай</button>
             </div>
             <div *ngSwitchCase="mineState.Mining">
-              <span class="timer">
-                Получить {{ mine.reward }} через {{ mine.status.time }}
-              </span>
+              <div *ngIf="mine.status.time">
+                <button disabled class="action-button timer locked-button">
+                  Получить {{ mine.reward }} через {{ mine.status.timeString}}
+                </button>
+              </div>
+              <div *ngIf="!mine.status.time">
+                <button class="action-button active-button">Запускай</button>
+              </div>              
             </div>
           </div>
         </div>
