@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 export interface Mine {
+  id: string;
   name: string;
   price: number;
   src: string;
@@ -34,25 +35,37 @@ export class MineService {
   getMines(): Mine[] {
     return [
       {
-        name: 'Базовая шахта ', price: 1500, reward: 50, src: 'images/mining1.png', status: {
+        id: '1', name: 'Базовая шахта ', price: 1500, reward: 50, src: 'images/mining1.png', status: {
           state: MineState.Locked
         }
       },
       {
-        name: 'Базовая шахта ', price: 1500, reward: 50, src: 'images/mining1.png', status: {
+        id: '2', name: 'Базовая шахта ', price: 1500, reward: 50, src: 'images/mining1.png', status: {
           state: MineState.Available
         }
       },
       {
-        name: 'Базовая шахта ', price: 1500, reward: 50, src: 'images/mining1.png', status: {
+        id: '3', name: 'Базовая шахта ', price: 1500, reward: 50, src: 'images/mining1.png', status: {
           state: MineState.Owned
         }
       },
       {
-        name: 'Базовая шахта ', price: 1500, reward: 50, src: 'images/mining1.png', status: {
+        id: '4', name: 'Базовая шахта ', price: 1500, reward: 50, src: 'images/mining1.png', status: {
           state: MineState.Mining, time: 3600
         }
       }
     ];
+  }
+
+  purchaseMine(mine: Mine) {
+
+  }
+
+  startMining(mine: Mine) {
+
+  }
+
+  getReward(mine: Mine) {
+
   }
 }

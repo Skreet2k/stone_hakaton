@@ -14,10 +14,10 @@
               <button class="action-button locked-button" disabled=>Недоступно</button>
             </div>
             <div *ngSwitchCase="mineState.Available">
-              <button class="action-button purchase-button">Купить за {{ mine.price }}</button>
+              <button class="action-button purchase-button" (click)="purchaseMine(mine)">Купить за {{ mine.price }}</button>
             </div>
             <div *ngSwitchCase="mineState.Owned">
-              <button class="action-button active-button">Запускай</button>
+              <button class="action-button active-button" (click)="startMining(mine)">Запускай</button>
             </div>
             <div *ngSwitchCase="mineState.Mining">
               <div *ngIf="mine.status.time">
@@ -26,7 +26,7 @@
                 </button>
               </div>
               <div *ngIf="!mine.status.time">
-                <button class="action-button active-button">Запускай</button>
+                <button class="action-button active-button" (click)="getReward(mine)">Забрать {{mine.reward}}</button>
               </div>              
             </div>
           </div>

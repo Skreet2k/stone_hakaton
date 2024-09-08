@@ -9,6 +9,7 @@ import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from 
   templateUrl: './mining.component.html',
   styleUrl: './mining.component.scss'
 })
+
 export class MiningComponent implements OnInit {
 
   public mineState = MineState;
@@ -38,5 +39,17 @@ export class MiningComponent implements OnInit {
         this.timer(mine);
       }, 1000);
     }
+  }
+
+  async purchaseMine(mine: Mine) {
+    this.mineService.purchaseMine(mine);
+  }
+
+  async startMining(mine: Mine) {
+    this.mineService.startMining(mine);
+  }
+
+  async getReward(mine: Mine) {
+    this.mineService.getReward(mine);
   }
 }
