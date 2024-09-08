@@ -86,7 +86,7 @@ public class ScoresService : IScoresService
         {
             User = Map(score.User, skins),
             Order = index + 1,
-            Score = score.TodayScore
+            Score = score.TotalScore
         }).ToList();
 
         var currentUser = leaders.First(x => x.User.Id == userId);
