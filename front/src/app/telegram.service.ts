@@ -27,6 +27,13 @@ export class TelegramService {
 
   // Получим информацию о пользователе
   getUserData(): User {
+    const localUser = localStorage.getItem('user');
+
+    if(localUser) { 
+      this.user = JSON.parse(localUser);
+      return this.user;
+    }
+
     if (this.isTelegramWebAppAvailable()) {
       const tg = (window as any).Telegram.WebApp;
       const user = tg.initDataUnsafe?.user;
@@ -38,6 +45,7 @@ export class TelegramService {
           username: user.username,
           avatar: 'images/avatar.png'
         };
+        localStorage.setItem('user', JSON.stringify(this.user));
       } else {
         console.error('Нет данных о пользователе');
       }

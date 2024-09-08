@@ -5,7 +5,7 @@ public class ClickRequest
     /// <summary>
     ///     User ID
     /// </summary>
-    public int UserId { get; set; }
+    public long UserId { get; set; }
 
     /// <summary>
     ///     Clicks Count. By default 1
