@@ -34,8 +34,17 @@ public class UserService : IUserService
             UserId = userId,
         };
 
+        var userSkin = new UserSkin
+        {
+            SkinId = 41,
+            IsActive = true,
+            UserId = userId
+        };
+
         await _dbContext.Users.AddAsync(user);
         await _dbContext.Scores.AddAsync(score);
+
+        await _dbContext.UserSkins.AddAsync(userSkin);
 
         await _dbContext.SaveChangesAsync();
     }
