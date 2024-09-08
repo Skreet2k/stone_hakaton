@@ -8,20 +8,27 @@
       <img src="images/arrow-right.png" />
     </div>
     <div class="store-item">
-      <div class="item-title">{{ currentStone?.name }}</div>
-      <div class="item-image"><img src="{{ currentStone?.src }}" /></div>
+      <div class="item-title">{{ selectedSkin?.name }}</div>
+      <div class="item-image"><img src="{{ selectedSkin?.url }}" /></div>
       <div class="item-price">
         <img src="images/coin.svg" alt="Diamonds" class="icon" />
-        {{ currentStone?.price }}
+        {{ selectedSkin?.price }}
       </div>
       <div class="item-actions">
         <div
           class="action buy"
-          [ngClass]="{ disabled: currentStone?.isPurchased }"
+          [ngClass]="{ disabled: selectedSkin?.isPurchased }"
+          (click)="clickBuy(selectedSkin?.id!)"
         >
           Buy
         </div>
-        <div class="action apply">Apply</div>
+        <div
+          class="action apply"
+          [ngClass]="{ disabled: selectedSkin?.isApplied }"
+          (click)="clickApply(selectedSkin?.id!)"
+        >
+          Apply
+        </div>
       </div>
     </div>
   </div>

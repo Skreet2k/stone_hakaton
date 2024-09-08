@@ -5,7 +5,7 @@
   (touchend)="onTouchEnd($event)"
 >
   <div class="stone">
-    <img src="images/stone1.png" [class.active]="isAnimating" />
+    <img [src]="userSkin?.url" [class.active]="isAnimating" />
   </div>
   <div
     *ngFor="let point of points"

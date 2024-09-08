@@ -1,7 +1,9 @@
 import { NgForOf, NgStyle } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ClickCounterService } from '../click-counter.service';
-import { LevelComponent } from "../level/level.component";
+import { LevelComponent } from '../level/level.component';
+import { Skin } from '../http-service.service';
+import { SkinService } from '../skin.service';
 
 @Component({
   selector: 'app-clicker',
@@ -16,13 +18,20 @@ export class ClickerComponent implements OnInit {
   points: { x: number; y: number }[] = [];
   isAnimating = false;
   incrementCount = 1;
+  userSkin: Skin | undefined;
   private timeout: any;
   private activeTouches: Set<number> = new Set(); // Множество для отслеживания уникальных касаний
 
-  constructor(private clickCounterService: ClickCounterService) {}
+  constructor(
+    private clickCounterService: ClickCounterService,
+    private skinService: SkinService
+  ) {}
 
   ngOnInit(): void {
     this.incrementCount = this.clickCounterService.getIncrementCount();
+    this.skinService.getCurrentSkin().subscribe(r => {
+      this.userSkin = r;
+    })
   }
 
   onTouch(event: TouchEvent) {
