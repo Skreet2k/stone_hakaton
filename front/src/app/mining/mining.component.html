@@ -21,7 +21,7 @@
             </div>
             <div *ngSwitchCase="mineState.Mining">
               <div *ngIf="mine.status.time">
-                <div disabled class="action-button timer locked-button">
+                <div disabled class="action timer disabled">
                   {{ mine.coinsCountPerTimeSpan }} farming {{ mine.status.timeString || ''}}
                 </div>
               </div>
