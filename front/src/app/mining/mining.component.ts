@@ -25,19 +25,35 @@ export class MiningComponent implements OnInit {
       this.mines = allMines.sort((a, b) => (a.price > b.price) ? 1 : (a.price < b.price) ? -1 : 0);
 
       this.mineService.getUserMines().subscribe((ownedMines) => {
-        this.mines.forEach(mine => {
-          const ownedMine = ownedMines.find(x => x.id == mine.id);
-          if (!ownedMine) {
-            mine.status = {
-              state: MineState.Available
+        this.mineService.getActiveMiner().subscribe((activeMiner) => {
+          this.mines.forEach(mine => {
+            const ownedMine = ownedMines.find(x => x.id == mine.id);
+            if (!ownedMine) {
+              mine.status = {
+                state: MineState.Available
+              }
             }
-          }
 
-          if (ownedMine) {
-            mine.status = {
-              state: MineState.Owned
+            if (ownedMine) {
+              mine.status = {
+                state: MineState.Owned
+              }
             }
-          }
+
+            if (activeMiner.miner.id === ownedMine?.id) {
+              mine.status.state = MineState.Mining;
+              const startTicks = Date.parse(activeMiner.startedAt);
+              const a = activeMiner.miner.timeSpan.split(':');
+              const span = ((+a[0] * 60 + (+a[1])) * 60 + (+a[2])) * 1000;
+              const endTicks = startTicks + span;
+              const ticksLeft = endTicks - new Date().getTime();
+
+              mine.status.time = Math.floor(ticksLeft / 1000);
+              setTimeout(() => {
+                this.timer(mine);
+              }, 1000);
+            }
+          })
         })
       });
     });
@@ -53,22 +69,22 @@ export class MiningComponent implements OnInit {
     // })
   }
 
-  // async timer(mine: Mine) {
-  //   if (mine.status.time) {
-  //     mine.status.time--;
-  //     mine.status.timeString = `${Math.floor(mine.status.time / 60)}:${mine.status.time % 60}`
-  //     await setTimeout(() => {
-  //       this.timer(mine);
-  //     }, 1000);
-  //   }
-  // }
+  async timer(mine: Mine) {
+    if (mine.status.time) {
+      mine.status.time--;
+      mine.status.timeString = `${Math.floor(mine.status.time / 60)}:${mine.status.time % 60}`
+      await setTimeout(() => {
+        this.timer(mine);
+      }, 1000);
+    }
+  }
 
   async purchaseMine(mine: Mine) {
     this.mineService.purchaseMine(mine).subscribe(r => { });
   }
 
   async startMining(mine: Mine) {
-    this.mineService.startMining(mine);
+    this.mineService.startMining(mine).subscribe(r => { });
   }
 
   async getReward(mine: Mine) {

@@ -79,9 +79,16 @@ export class HttpService {
     );
   }
 
+  startMining(userId: number, mineId: number): Observable<void> {
+    return this.httpClient.put<void>(
+      this.baseUrl + 'miners?userId=' + userId + '&minerId=' + mineId,
+      null
+    );
+  }
+
   purchaseMine(userId: number, mineId: number): Observable<void> {
     return this.httpClient.post<any>(
-      this.baseUrl + 'shop/miners/' + mineId,
+      this.baseUrl + 'shop/miners/' + mineId + '?userId=' + userId,
       { userId: userId }
     );
   }

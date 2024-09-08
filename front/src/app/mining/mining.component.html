@@ -16,18 +16,18 @@
             <div *ngSwitchCase="mineState.Available">
               <div class="action green" (click)="purchaseMine(mine)">{{ mine.price }} Upgrade</div>
             </div>
-            <!-- <div *ngSwitchCase="mineState.Owned">
+            <div *ngSwitchCase="mineState.Owned">
               <div class="action yellow" (click)="startMining(mine)">Start farming</div>
-            </div> -->
+            </div>
             <div *ngSwitchCase="mineState.Mining">
-              <!-- <div *ngIf="mine.status.time">
+              <div *ngIf="mine.status.time">
                 <div disabled class="action-button timer locked-button">
                   {{ mine.coinsCountPerTimeSpan }} farming {{ mine.status.timeString || ''}}
                 </div>
-              </div> -->
-              <!-- <div *ngIf="!mine.status.time">
+              </div>
+              <div *ngIf="!mine.status.time">
                 <div class="action yellow" (click)="getReward(mine)">Get {{mine.coinsCountPerTimeSpan}}</div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>

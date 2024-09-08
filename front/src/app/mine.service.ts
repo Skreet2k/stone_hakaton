@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Timestamp } from 'rxjs';
-import { HttpService, Mine } from './http-service.service';
+import { ActiveMine, HttpService, Mine } from './http-service.service';
 import { TelegramService } from './telegram.service';
 
 @Injectable({
@@ -23,13 +23,19 @@ export class MineService {
     return this.httpService.getUserMines(user.userId);
   }
 
+  getActiveMiner(): Observable<ActiveMine> {
+    const user = this.telegramService.getUserData();
+    return this.httpService.getActiveMine(user.userId);
+  }
+
   purchaseMine(mine: Mine) {
     const user = this.telegramService.getUserData();
     return this.httpService.purchaseMine(user.userId, mine.id);
   }
 
   startMining(mine: Mine) {
-
+    const user = this.telegramService.getUserData();
+    return this.httpService.startMining(user.userId, mine.id);
   }
 
   getReward(mine: Mine) {
